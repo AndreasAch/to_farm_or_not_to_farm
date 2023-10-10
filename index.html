@@ -16,8 +16,8 @@
         const playerName = document.getElementById('playerName').value;
         const sessionCode = document.getElementById('sessionCode').value;
 
-        // Send a POST request to the Flask server to join the game
-        fetch('https://andreasach.github.io/to_farm_or_not_to_farm/join', {
+        // Send a POST request to your locally running Flask server to join the game
+        fetch('http://127.0.0.1:5000/join', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

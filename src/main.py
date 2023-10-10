@@ -1,11 +1,7 @@
 import sys
-
+import requests
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWidget
 from PyQt5.QtCore import QTimer
-
-from flask import Flask
-
-players = []  # Initialize an empty list to store player data
 
 class FarmApp(QWidget):
     def __init__(self):
@@ -14,7 +10,7 @@ class FarmApp(QWidget):
 
     def initUI(self):
         self.setWindowTitle('Farm Desktop App')
-        self.setGeometry(300, 300, 400, 300)
+        self.setGeometry(300, 300, 400, 400)
 
         self.label = QLabel('Farm Desktop App', self)
         self.label.move(50, 50)
@@ -25,43 +21,35 @@ class FarmApp(QWidget):
         self.players_label = QLabel('Players:', self)
         self.players_label.move(50, 150)
 
-        self.shutdown_btn = QPushButton('Shutdown', self)
-        self.shutdown_btn.move(250, 250)
-        self.shutdown_btn.clicked.connect(self.shutdown)
-
         self.player_list_widget = QListWidget(self)
-        self.player_list_widget.setGeometry(50, 180, 150, 100)
+        self.player_list_widget.setGeometry(50, 200, 300, 150)
 
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_gui)
-        self.timer.start(1000)  # Update every 1 second
+        self.refresh_button = QPushButton('Refresh Player List', self)
+        self.refresh_button.move(50, 360)
+        self.refresh_button.clicked.connect(self.update_gui)
 
         self.show()
 
-    def handle_new_player(self, player_name, session_code):
-        # Update your GUI to display the new player
-        self.player_list_widget.addItem(f'{player_name} ({session_code})')
-
-    def start_notification_listener(self):
-        app = Flask(__name__)
-
-        @app.route('/player_joined', methods=['POST'])
-        def player_joined():
-            player_name = request.form['player_name']
-            session_code = request.form['session_code']
-            self.handle_new_player(player_name, session_code)
-            return jsonify({'message': 'Notification received.'})
-
-        app.run(host='0.0.0.0', port=12345)  # Use a port that your PyQt5 app will listen on
+    def fetch_player_list(self, session_code):
+        url = f'http://localhost:5000/players/{session_code}'
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                players = response.json().get('players', [])
+                return players
+            else:
+                print('Failed to fetch player list. Status code:', response.status_code)
+        except requests.exceptions.RequestException as e:
+            print('Error:', e)
 
     def update_gui(self):
-        # Fetch the updated player list
-        player_list = self.fetch_player_list()
-        self.update_players(player_list)
+        session_code = 'ABCD'  # Replace with the actual session code
+        player_list = self.fetch_player_list(session_code)
 
-    def shutdown(self):
-        # Add shutdown logic here
-        self.close()
+        if player_list:
+            self.player_list_widget.clear()
+            for player in player_list:
+                self.player_list_widget.addItem(player)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
