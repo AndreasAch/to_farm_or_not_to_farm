@@ -1,35 +1,29 @@
+import requests
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Allow CORS for all routes
 
-# Dictionary to store player information by session code
-player_data = {}
+lobby_players = []  # List to store player information
 
 @app.route('/')
 def hello():
     return 'Hello, Farm Desktop App!'
 
-@app.route('/players/<session_code>', methods=['GET'])
-def get_players(session_code):
-    players = player_data.get(session_code, [])
-    return jsonify({'players': players})
+@app.route('/lobby_players', methods=['GET'])
+def get_lobby_players():
+    return jsonify({'lobby_players': lobby_players})
 
 @app.route('/join', methods=['POST'])
 def join_game():
-    player_name = request.form.get('player_name')
-    session_code = request.form.get('session_code')
+    player_name = request.form['player_name']
+    session_code = request.form['session_code']
 
-    if player_name and session_code:
-        # Create a new list for the session code if it doesn't exist
-        if session_code not in player_data:
-            player_data[session_code] = []
+    # Add player to the list
+    lobby_players.append(player_name)
 
-        # Add player to the list for the session code
-        player_data[session_code].append(player_name)
-
-        return jsonify({'message': 'Join request received.'})
-    else:
-        return jsonify({'error': 'Invalid player_name or session_code.'}), 400
+    return jsonify({'message': 'Join request received.'})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
