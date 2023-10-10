@@ -1,49 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player Interface</title>
-    <style>
-        /* Basic styling, feel free to modify */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        input, button {
-            margin: 10px 0;
-        }
-    </style>
+    <title>Farm Game - Join Page</title>
 </head>
 <body>
-<h1>Welcome to the Game Lobby</h1>
-
-<h2>Current Players:</h2>
-<ul id="playerList"></ul>
-
-<p id="waitingMessage">Waiting for the game to start...</p>
+<h1>Welcome to the Farm Game</h1>
+<label for="playerName">Enter your name:</label>
+<input type="text" id="playerName" placeholder="Your name"><br><br>
+<label for="sessionCode">Enter the session code:</label>
+<input type="text" id="sessionCode" placeholder="Session code"><br><br>
+<button onclick="joinGame()">Join Game</button>
 
 <script>
-    function joinSession() {
+    function joinGame() {
         const playerName = document.getElementById('playerName').value;
         const sessionCode = document.getElementById('sessionCode').value;
 
-        fetch('/join', {
+        // Send a POST request to the Flask server to join the game
+        fetch('http://localhost:5000/join', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: JSON.stringify({
-                playerName,
-                sessionCode
-            })
+            body: `player_name=${playerName}&session_code=${sessionCode}`
         })
-            .then(response => response.json())
-            .then(data => {
-                // Display a message and update the player list
-                document.getElementById('waitingMessage').innerText = `Hello, ${data.playerName}! You've joined the game.`;
-                document.getElementById('playerList').innerHTML = `<li>${data.playerName}</li>`;
-            });
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    alert('Join request received.');
+                })
+                .catch(error => console.error('Error:', error));
     }
 </script>
 </body>
