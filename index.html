@@ -17,7 +17,7 @@
         const sessionCode = document.getElementById('sessionCode').value;
 
         // Send a POST request to your locally running Flask server to join the game
-        fetch('/join', {
+        fetch('http://localhost:5000/join', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
