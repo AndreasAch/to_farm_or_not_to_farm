@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Interface</title>
+    <style>
+        /* Basic styling, feel free to modify */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to the Game Lobby</h1>
+
+<h2>Current Players:</h2>
+<ul id="playerList"></ul>
+
+<p id="waitingMessage">Waiting for the game to start...</p>
+
+<script>
+    function joinSession() {
+        const playerName = document.getElementById('playerName').value;
+        const sessionCode = document.getElementById('sessionCode').value;
+
+        fetch('/join', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                playerName,
+                sessionCode
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Display a message and update the player list
+                document.getElementById('waitingMessage').innerText = `Hello, ${data.playerName}! You've joined the game.`;
+                document.getElementById('playerList').innerHTML = `<li>${data.playerName}</li>`;
+            });
+    }
+</script>
+</body>
+</html>
