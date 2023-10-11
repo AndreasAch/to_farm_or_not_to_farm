@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To Farm or Not to Farm - Lobby</title>
+</head>
+<body>
+<h1>Lobby</h1>
+<h2>Players in the Lobby:</h2>
+<ul id="playerList"></ul>
+<button onclick="leaveGame()">Leave Lobby</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const playerName = params.get('playerName');
+    const sessionCode = params.get('sessionCode');
+
+    const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com:5000');
+
+    socket.on('update_lobby', (players) => {
+        const playerList = document.getElementById('playerList');
+        playerList.innerHTML = '';
+        players.forEach(player => {
+            const listItem = document.createElement('li');
+            listItem.textContent = player;
+            playerList.appendChild(listItem);
+        });
+    });
+
+    function leaveGame() {
+        socket.emit('leave_game', {
+            player_name: playerName,
+            session_code: sessionCode
+        });
+
+        window.location.href = 'index.html';
+    }
+
+    window.addEventListener('unload', () => {
+        // Emit a leave request when the tab is closed
+        socket.emit('leave_game', {
+            player_name: playerName,
+            session_code: sessionCode
+        });
+    });
+</script>
+
+</body>
+</html>

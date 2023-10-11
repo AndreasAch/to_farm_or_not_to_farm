@@ -11,31 +11,26 @@
 <input type="text" id="sessionCode" placeholder="Session code"><br><br>
 <button onclick="joinGame()">Join Game</button>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
 <script>
+    const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com:5000');
+
+    socket.on('connect', () => {
+        console.log('Connected to server');
+    });
+
     function joinGame() {
         const playerName = document.getElementById('playerName').value;
         const sessionCode = document.getElementById('sessionCode').value;
 
-        // Send a POST request to your server to join the game
-        fetch('https://to-farm-or-not-to-farm-0cabd20d5aac.herokuapp.com/join', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                player_name: playerName,
-                session_code: sessionCode
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                alert('Join request received.');
-            })
-            .catch(error => console.error('Error:', error));
+        socket.emit('join_game', {
+            player_name: playerName,
+            session_code: sessionCode
+        });
+        // Redirect to the lobby page
+        window.location.href = `lobby.html?playerName=${playerName}&sessionCode=${sessionCode}`;
     }
 </script>
 
 </body>
 </html>
-
