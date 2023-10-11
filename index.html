@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Farm Game - Join Page</title>
+    <title>To Farm or Not to Farm - Join Page</title>
 </head>
 <body>
-<h1>Welcome to the Farm Game</h1>
+<h1>Welcome!</h1>
 <label for="playerName">Enter your name:</label>
 <input type="text" id="playerName" placeholder="Your name"><br><br>
 <label for="sessionCode">Enter the session code:</label>
@@ -16,13 +16,16 @@
         const playerName = document.getElementById('playerName').value;
         const sessionCode = document.getElementById('sessionCode').value;
 
-        // Send a POST request to your locally running Flask server to join the game
-        fetch('http://localhost:5000/join', {
+        // Send a POST request to your server to join the game
+        fetch('https://to-farm-or-not-to-farm-0cabd20d5aac.herokuapp.com/join', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
-            body: `player_name=${playerName}&session_code=${sessionCode}`
+            body: JSON.stringify({
+                player_name: playerName,
+                session_code: sessionCode
+            })
         })
             .then(response => response.json())
             .then(data => {
@@ -32,5 +35,7 @@
             .catch(error => console.error('Error:', error));
     }
 </script>
+
 </body>
 </html>
+
