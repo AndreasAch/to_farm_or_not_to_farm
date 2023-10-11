@@ -80,7 +80,7 @@ class FarmApp(QWidget):
         self.show()
 
     async def connect_to_server_and_get_session_code(self):
-        uri = "wss://your-websocket-url-here"  # Replace with your WebSocket URL
+        uri = "wss://to-farm-or-not-tofarm.onrender.com:8765"  # Replace with your WebSocket URL
         async with websockets.connect(uri) as websocket:
             await websocket.send('get_session_code')  # Request session code
             session_code = await websocket.recv()  # Receive session code
