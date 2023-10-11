@@ -1,3 +1,4 @@
+import json
 import os
 import random
 import asyncio
@@ -11,10 +12,24 @@ desktop_app_websocket = None
 def generate_session_code():
     return ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', k=6))
 
-@app.route('/session_code', methods=['GET'])
-def get_session_code():
-    session_code = generate_session_code()
-    return jsonify({'session_code': session_code})
+@app.websocket("/ws")
+async def websocket_handler(websocket):
+    try:
+        while True:
+            message = await websocket.receive_text()
+            message_data = json.loads(message)
+
+            if message_data["type"] == "getSessionCode":
+                session_code = generate_session_code()
+                response_message = {
+                    "type": "sessionCode",
+                    "sessionCode": session_code
+                }
+                await websocket.send_text(json.dumps(response_message))
+
+    except websockets.exceptions.ConnectionClosed:
+        # Handle the connection closed event
+        pass
 
 if __name__ == '__main__':
     # ... existing code ...
