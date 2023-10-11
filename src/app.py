@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 players = set()
-desktop_app_websocket = None
+desktop_app_websocket = "wss://to-farm-or-not-tofarm.onrender.com"
 
 def generate_session_code():
     return ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', k=6))
@@ -29,6 +29,5 @@ if __name__ == '__main__':
             pass
 
     start_server = websockets.serve(websocket_handler, "0.0.0.0", 8765)
-    print(start_server)
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
