@@ -1,48 +1,56 @@
-import json
 import os
 import random
-import asyncio
-import websockets
 from flask import Flask, request, jsonify
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'TFONTF'  # Change this to a random secret key
+socketio = SocketIO(app)
+
 players = set()
-desktop_app_websocket = None
+
+@app.route('/')
+def hello():
+    return 'Hello, Farm Desktop App!'
+
+@app.route('/players')
+def get_players():
+    return jsonify({'players': list(players)})
+
+@app.route('/join', methods=['POST'])
+def join_game():
+    data = request.get_json()
+    player_name = data.get('player_name')
+    session_code = data.get('session_code')
+
+    players.add(player_name)
+
+    notify_desktop_app(f'Player joined: {player_name}')
+
+    return jsonify({'message': 'Join request received.'})
+
+@app.route('/leave', methods=['POST'])
+def leave_game():
+    data = request.get_json()
+    player_name = data.get('player_name')
+
+    players.remove(player_name)
+
+    notify_desktop_app(f'Player left: {player_name}')
+
+    return jsonify({'message': 'Leave request received.'})
+
+def notify_desktop_app(message):
+    socketio.emit('message', {'message': message}, broadcast=True)
 
 def generate_session_code():
     return ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', k=6))
 
-@app.websocket("/ws")
-async def websocket_handler(websocket):
-    try:
-        while True:
-            message = await websocket.receive_text()
-            message_data = json.loads(message)
-
-            if message_data["type"] == "getSessionCode":
-                session_code = generate_session_code()
-                response_message = {
-                    "type": "sessionCode",
-                    "sessionCode": session_code
-                }
-                await websocket.send_text(json.dumps(response_message))
-
-    except websockets.exceptions.ConnectionClosed:
-        # Handle the connection closed event
-        pass
+@socketio.on('get_session_code')
+def get_session_code():
+    session_code = generate_session_code()
+    emit('session_code', session_code)
 
 if __name__ == '__main__':
-    # ... existing code ...
+    socketio.run(app, host='0.0.0.0', port=5000)
 
-    async def websocket_handler(websocket, path):
-        global desktop_app_websocket
-        desktop_app_websocket = websocket
-        try:
-            while True:
-                await asyncio.sleep(10)  # Keep the WebSocket connection alive
-        except websockets.exceptions.ConnectionClosed:
-            pass
-
-    start_server = websockets.serve(websocket_handler, "0.0.0.0", 8765)
-    asyncio.get_event_loop().run_until_complete(start_server)
-    asyncio.get_event_loop().run_forever()

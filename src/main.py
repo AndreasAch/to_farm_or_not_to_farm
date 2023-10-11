@@ -51,13 +51,9 @@
 #     app = QApplication(sys.argv)
 #     farm_app = FarmApp()
 #     sys.exit(app.exec_())
-import json
 import sys
-import requests
-import asyncio
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
-from PyQt5.QtCore import Qt
-import websockets
+from socketio import Client
 
 class FarmApp(QWidget):
     def __init__(self):
@@ -66,38 +62,32 @@ class FarmApp(QWidget):
 
     def initUI(self):
         self.setWindowTitle('Farm Desktop App')
-        self.setGeometry(300, 300, 400, 200)  # Adjust dimensions as needed
+        self.setGeometry(300, 300, 400, 200)
 
         layout = QVBoxLayout()
 
         self.label = QLabel('Farm Desktop App', self)
         layout.addWidget(self.label)
 
-        self.session_label = QLabel('Session Code: Loading...', self)
+        self.session_label = QLabel('Session Code: Fetching...', self)
         layout.addWidget(self.session_label)
 
         self.setLayout(layout)
         self.show()
 
-    async def connect_to_server_and_get_session_code(self):
-        uri = "wss://to-farm-or-not-tofarm.onrender.com:8765/"  # Replace with your WebSocket URL
-        async with websockets.connect(uri) as websocket:
-            request_message = {
-                "type": "getSessionCode"
-            }
-        await websocket.send(json.dumps(request_message))
-
-        response = await websocket.recv()
-        response_data = json.loads(response)
-
-        if response_data["type"] == "sessionCode":
-            session_code = response_data["sessionCode"]
-            self.session_label.setText(f'Session Code: {session_code}')
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     farm_app = FarmApp()
-    loop = asyncio.get_event_loop()  # Get the event loop
-    loop.create_task(farm_app.connect_to_server_and_get_session_code())  # Run the asynchronous task
+
+    # Connect to the SocketIO server
+    socket = Client()
+    socket.connect('https://to-farm-or-not-tofarm.onrender.com:5000')
+
+    # Listen for 'session_code' event
+    @socket.on('session_code')
+    def on_session_code(session_code):
+        farm_app.session_label.setText(f'Session Code: {session_code}')
+
     sys.exit(app.exec_())
+
 
