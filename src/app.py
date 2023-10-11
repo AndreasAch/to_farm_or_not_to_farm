@@ -36,17 +36,18 @@ def join_game(data):
     player_name = data.get('player_name')
     session_code = data.get('session_code')
     players.append(player_name)
-    emit('player_joined', player_name, broadcast=True)
+    emit('player_joined' + session_code, player_name, broadcast=True)
     time.sleep(1)
-    emit('update_lobby', players, broadcast=True)
+    emit('update_lobby' + session_code, players, broadcast=True)
 
 @socketio.on('leave_game')
 def leave_game(data):
     player_name = data.get('player_name')
+    session_code = data.get('session_code')
     players.remove(player_name)
-    emit('player_left', player_name, broadcast=True)
+    emit('player_left' + session_code, player_name, broadcast=True)
     time.sleep(1)
-    emit('update_lobby', players, broadcast=True)
+    emit('update_lobby' + session_code, players, broadcast=True)
 
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=5000, allow_unsafe_werkzeug=True)
