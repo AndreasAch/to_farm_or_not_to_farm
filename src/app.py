@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 players = set()
-desktop_app_websocket = "wss://to-farm-or-not-tofarm.onrender.com"
+desktop_app_websocket = None
 
 def generate_session_code():
     return ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', k=6))

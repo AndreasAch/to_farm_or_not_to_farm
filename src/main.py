@@ -89,9 +89,7 @@ class FarmApp(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     farm_app = FarmApp()
-
-    # Run the asynchronous function to connect and get the session code
-    asyncio.create_task(farm_app.connect_to_server_and_get_session_code())
-
+    loop = asyncio.get_event_loop()  # Get the event loop
+    loop.create_task(farm_app.connect_to_server_and_get_session_code())  # Run the asynchronous task
     sys.exit(app.exec_())
 
