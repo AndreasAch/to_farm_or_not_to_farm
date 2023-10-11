@@ -26,7 +26,7 @@ class FarmApp(QWidget):
 
     def fetch_session_code(self):
         # Replace with your server endpoint to fetch the session code
-        endpoint = 'https://to-farm-or-not-to-farm-0cabd20d5aac.herokuapp.com/session_code'
+        endpoint = 'https://to-farm-or-not-tofarm.onrender.com/session_code'
         try:
             response = requests.get(endpoint)
             if response.status_code == 200:
