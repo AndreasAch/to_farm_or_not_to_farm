@@ -61,7 +61,7 @@ if __name__ == '__main__':
         farm_app.players_list.addItems(farm_app.players)
 
 
-    socket.connect('https://to-farm-or-not-tofarm.onrender.com:5000')
+    socket.connect('https://to-farm-or-not-tofarm.onrender.com')
 
     sys.exit(app.exec_())
 
