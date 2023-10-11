@@ -1,5 +1,7 @@
 import sys
+import asyncio
 import requests
+import websockets
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
 
 class FarmApp(QWidget):
@@ -29,15 +31,28 @@ class FarmApp(QWidget):
         endpoint = 'https://to-farm-or-not-tofarm.onrender.com/session_code'
         try:
             response = requests.get(endpoint)
-            if response.status_code == 200:
-                return response.json().get('session_code', 'Unknown')
-            else:
-                print('Failed to fetch session code. Status code:', response.status_code)
+            response.raise_for_status()  # Raise an exception for bad status codes (4xx, 5xx)
+            return response.json().get('session_code', 'Unknown')
         except requests.exceptions.RequestException as e:
             print('Error:', e)
-            return 'Unknown'
+            return 'Error fetching session code'
+
+    async def websocket_handler(self):
+        async with websockets.connect('wss://to-farm-or-not-tofarm.onrender.com/') as websocket:
+            while True:
+                message = await websocket.recv()
+                if message.startswith('Player joined: '):
+                    player_name = message[len('Player joined: '):]
+                    print('Player joined:', player_name)
+                    # Update your UI to reflect the new player
+
+                elif message.startswith('Player left: '):
+                    player_name = message[len('Player left: '):]
+                    print('Player left:', player_name)
+                    # Update your UI to reflect the player leaving
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     farm_app = FarmApp()
+    asyncio.create_task(farm_app.websocket_handler())  # Start WebSocket handling
     sys.exit(app.exec_())
