@@ -17,12 +17,14 @@
 
     socket.on('connect', () => {
         console.log('Connected to server');
+
     });
 
     function joinGame() {
         const playerName = document.getElementById('playerName').value;
         const sessionCode = document.getElementById('sessionCode').value;
 
+        socket.join(sessionCode);
         socket.emit('join_game', {
             player_name: playerName,
             session_code: sessionCode

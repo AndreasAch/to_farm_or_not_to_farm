@@ -75,9 +75,10 @@ from socketio import Client
 class FarmApp(QWidget):
     def __init__(self):
         super().__init__()
+        self.socket = None
         self.players = []
         self.initUI()
-        self.session_code
+        self.session_code = ""
         #self.retry_interval = 3000  # 3 seconds
         self.connect_to_server()
 
@@ -124,11 +125,12 @@ class FarmApp(QWidget):
             self.session_code = session_code
             self.session_label.setText(f'Session Code: {session_code}')
 
-        @self.socket.on('player_joined' + self.session_code)
-        def on_player_join(player_name):
-            print(f'Player joined: {player_name}')
-            self.players.append(player_name)
-            self.update_player_list()
+        @self.socket.on('player_joined')
+        def on_player_join(player):
+            if player.code == self.session_code:
+                print(f'Player joined: {player.name}')
+                self.players.append(player.name)
+                self.update_player_list()
 
         @self.socket.on('player_left' + self.session_code)
         def on_player_leave(player_name):

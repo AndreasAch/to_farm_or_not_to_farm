@@ -15,9 +15,9 @@
     const playerName = params.get('playerName');
     const sessionCode = params.get('sessionCode');
 
-    const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
+    const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com').join(sessionCode);
 
-    socket.on('update_lobby' + sessionCode, (players) => {
+    socket.on('update_lobby', (players) => {
         const playerList = document.getElementById('playerList');
         playerList.innerHTML = '';
         players.forEach(player => {

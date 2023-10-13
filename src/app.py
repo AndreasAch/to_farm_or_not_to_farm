@@ -10,44 +10,49 @@ app.config['SECRET_KEY'] = 'TFONTF'  # Change this to a random secret key
 socketio = SocketIO(app, cors_allowed_origins="*")
 CORS(app)
 
-players = []
+sessions = {}
+
 
 @app.route('/')
 def hello():
     return 'Hello, Farm Desktop App!'
 
-@app.route('/players')
-def get_players():
-    return jsonify({'players': list(players)})
-
-def notify_desktop_app(message):
-    socketio.emit('message', {'message': message}, broadcast=True)
 
 def generate_session_code():
     return ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', k=6))
+
 
 @socketio.on('get_session_code')
 def get_session_code():
     session_code = generate_session_code()
     emit('session_code', session_code)
 
+
 @socketio.on('join_game')
 def join_game(data):
-    player_name = data.get('player_name')
-    session_code = data.get('session_code')
-    players.append(player_name)
-    emit('player_joined' + session_code, player_name, broadcast=True)
+    player = {
+        'code': data.get('session_code'),
+        'name': data.get('player_name')
+    }
+    if player['code'] not in sessions:
+        sessions[player['code']] = []
+    sessions[player['code']].append(player['name'])
+    emit('player_joined', player, room=player['code'])
     time.sleep(1)
-    emit('update_lobby' + session_code, players, broadcast=True)
+    emit('update_lobby', player, room=player['code'])
+
 
 @socketio.on('leave_game')
 def leave_game(data):
-    player_name = data.get('player_name')
-    session_code = data.get('session_code')
-    players.remove(player_name)
-    emit('player_left' + session_code, player_name, broadcast=True)
+    player = {
+        'code': data.get('session_code'),
+        'name': data.get('player_name')
+    }
+    sessions[player['code']].remove(player['name'])
+    emit('player_left', player, room=player['code'])
     time.sleep(1)
-    emit('update_lobby' + session_code, players, broadcast=True)
+    emit('update_lobby', player, room=player['code'])
+
 
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=5000, allow_unsafe_werkzeug=True)
