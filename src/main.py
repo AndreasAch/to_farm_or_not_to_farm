@@ -151,6 +151,7 @@ class FarmApp(QWidget):
         self.players_list.clear()
         self.players_list.addItems(self.players)
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     farm_app = FarmApp()

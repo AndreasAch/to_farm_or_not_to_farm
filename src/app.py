@@ -60,7 +60,6 @@ def leave_game(data):
 def join(data):
     code = data.get('session_code')
     join_room(code)
-    emit('update_lobby', sessions[code], room=code)
 
 
 if __name__ == '__main__':

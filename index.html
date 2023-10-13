@@ -23,14 +23,14 @@
     function joinGame() {
         const playerName = document.getElementById('playerName').value;
         const sessionCode = document.getElementById('sessionCode').value;
-        window.location.href = `lobby.html?playerName=${playerName}&sessionCode=${sessionCode}`;
+
 
         socket.emit('join_game', {
             player_name: playerName,
             session_code: sessionCode
         });
         // Redirect to the lobby page
-
+        window.location.href = `lobby.html?playerName=${playerName}&sessionCode=${sessionCode}`;
     }
 </script>
 
