@@ -25,7 +25,8 @@ def generate_session_code():
 @socketio.on('get_session_code')
 def get_session_code():
     session_code = generate_session_code()
-    emit('session_code', session_code)
+    join_room(session_code)
+    emit('session_code', session_code, room=session_code)
 
 
 @socketio.on('join_game')
