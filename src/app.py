@@ -41,7 +41,7 @@ def join_game(data):
     join_room(player['code'])
     emit('player_joined', player, room=player['code'])
     time.sleep(1)
-    emit('update_lobby', player, room=player['code'])
+    emit('update_lobby', sessions[player['code']], room=player['code'])
 
 
 @socketio.on('leave_game')
@@ -53,7 +53,7 @@ def leave_game(data):
     sessions[player['code']].remove(player['name'])
     emit('player_left', player, room=player['code'])
     time.sleep(1)
-    emit('update_lobby', player, room=player['code'])
+    emit('update_lobby', sessions[player['code']], room=player['code'])
 
 
 @socketio.on('join')

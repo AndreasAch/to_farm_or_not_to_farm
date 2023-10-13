@@ -29,7 +29,7 @@
         playerList.innerHTML = '';
         players.forEach(player => {
             const listItem = document.createElement('li');
-            listItem.textContent = player;
+            listItem.textContent = player['name'];
             playerList.appendChild(listItem);
         });
     });
