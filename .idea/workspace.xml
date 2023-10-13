@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="75f607e0-e621-4d89-9fe5-56b0a67256ca" name="Changes" comment="" />
+    <list default="true" id="75f607e0-e621-4d89-9fe5-56b0a67256ca" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobby.html" beforeDir="false" afterPath="$PROJECT_DIR$/lobby.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/to_farm_or_not_to_farm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/to_farm_or_not_to_farm.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,6 +57,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\toFarmOrNotToFarm\src\frontend" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\toFarmOrNotToFarm\src\backend" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\toFarmOrNotToFarm\src\templates" />
@@ -107,7 +112,8 @@
       <workItem from="1696968492706" duration="8807000" />
       <workItem from="1697020309649" duration="22408000" />
       <workItem from="1697063773056" duration="2836000" />
-      <workItem from="1697199231562" duration="6146000" />
+      <workItem from="1697199231562" duration="7976000" />
+      <workItem from="1697209015403" duration="3234000" />
     </task>
     <servers />
   </component>

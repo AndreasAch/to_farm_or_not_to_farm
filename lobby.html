@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <title>To Farm or Not to Farm - Lobby</title>
 </head>
 <body>
-<h1>Lobby</h1>
-<h2>Players in the Lobby:</h2>
-<ul id="playerList"></ul>
-<button onclick="leaveGame()">Leave Lobby</button>
 
 <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/phaser@3.51.0/dist/phaser.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/phaser-ui-tools@2.0.0-beta/dist/phaser-ui-tools.min.js"></script>
+
 <script>
     const params = new URLSearchParams(window.location.search);
     const playerName = params.get('playerName');
@@ -17,22 +16,73 @@
 
     const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
 
-    socket.emit('join', {
-        player_name: playerName,
-        session_code: sessionCode
-    });
+    const config = {
+        type: Phaser.AUTO,
+        width: 360,
+        height: 800,
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        },
+        scale: {
+            mode: Phaser.Scale.FIT,
+            autoCenter: Phaser.Scale.CENTER_BOTH,
+        }
+    };
 
-    socket.on('update_lobby', (players) => {
-        const playerList = document.getElementById('playerList');
-        console.log('update received');
-        console.log(players)
-        playerList.innerHTML = '';
-        players.forEach(player => {
-            const listItem = document.createElement('li');
-            listItem.textContent = player['name'];
-            playerList.appendChild(listItem);
+    const game = new Phaser.Game(config);
+    let textStyle = {'fill': '#FFF', 'font': '16px Courier New'};
+
+    function preload() {
+        socket.emit('join', {
+            player_name: playerName,
+            session_code: sessionCode
         });
-    });
+
+        let assetRoot = '../assets/';
+        this.load.spritesheet('button', assetRoot + 'button.png', { frameWidth: 190, frameHeight: 49 });
+    }
+
+    function create() {
+        // Create your game objects and initialize game state
+        let buttonOne = new uiWidgets.TextButton(this, 0, 0, "button", leaveGame, this, 0, 0, 1, 0)
+            .setText("Leave Game", textStyle)
+            .eventTextYAdjustment(1);
+
+        this.header = new uiWidgets.TextSprite(this, 0, 0, "button").setText('', textStyle).setOrigin(0.0, 0.0);
+
+        // var buttonTwo = new uiWidgets.TextButton(this, 0, 0, "button", continueCallback, this, 1, 0, 2, 1)
+        //     .setText("Continue", textStyle)
+        //     .eventTextYAdjustment(3);
+        // var buttonThree = new uiWidgets.TextButton(this, 0, 0, "button", optionsCallback, this, 1, 0, 2, 1)
+        //     .setText("Options", textStyle)
+        //     .eventTextYAdjustment(3);
+
+        var column = new uiWidgets.Column(this, 200, 100);
+        column.addNode(buttonOne, paddingX=0, paddingY=10);
+        // column.addNode(buttonTwo, paddingX=0, paddingY=10);
+        // column.addNode(buttonThree, paddingX=0, paddingY=10);
+
+        socket.on('update_lobby', (players) => {
+            // const playerList = document.getElementById('playerList');
+            // playerList.innerHTML = '';
+            // players.forEach(player => {
+            //     const listItem = document.createElement('li');
+            //     listItem.textContent = player;
+            //     playerList.appendChild(listItem);
+            // });
+            let text = '';
+            players.forEach(player => {
+                text += player + '\n';
+            })
+            this.header.text.setText(text);
+        });
+    }
+
+    function update() {
+    }
+
 
     function leaveGame() {
         socket.emit('leave_game', {

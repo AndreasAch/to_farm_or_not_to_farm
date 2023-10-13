@@ -8,5 +8,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="socket.io" level="application" />
+    <orderEntry type="library" name="phaser" level="application" />
+    <orderEntry type="library" name="phaser3-rex-plugins" level="application" />
+    <orderEntry type="library" name="phaser-ui-tools" level="application" />
   </component>
 </module>
