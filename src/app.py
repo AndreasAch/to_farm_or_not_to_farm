@@ -2,7 +2,7 @@ import random
 import time
 
 from flask import Flask, request, jsonify
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, join_room
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -37,6 +37,7 @@ def join_game(data):
     if player['code'] not in sessions:
         sessions[player['code']] = []
     sessions[player['code']].append(player['name'])
+    join_room(player['code'])
     emit('player_joined', player, room=player['code'])
     time.sleep(1)
     emit('update_lobby', player, room=player['code'])
