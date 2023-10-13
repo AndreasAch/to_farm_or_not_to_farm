@@ -127,15 +127,15 @@ class FarmApp(QWidget):
 
         @self.socket.on('player_joined')
         def on_player_join(player):
-            if player.code == self.session_code:
-                print(f'Player joined: {player.name}')
-                self.players.append(player.name)
+            if player['code'] == self.session_code:
+                print(f'Player joined: {player["name"]}')
+                self.players.append(player['name'])
                 self.update_player_list()
 
-        @self.socket.on('player_left' + self.session_code)
-        def on_player_leave(player_name):
-            print(f'Player left: {player_name}')
-            self.players.remove(player_name)
+        @self.socket.on('player_left')
+        def on_player_leave(player):
+            print(f'Player left: {player["name"]}')
+            self.players.remove(player['name'])
             self.update_player_list()
 
         try:

@@ -19,6 +19,8 @@
 
     socket.on('update_lobby', (players) => {
         const playerList = document.getElementById('playerList');
+        console.emit('join', sessionCode);
+        console.log(players)
         playerList.innerHTML = '';
         players.forEach(player => {
             const listItem = document.createElement('li');

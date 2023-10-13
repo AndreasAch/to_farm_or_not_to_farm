@@ -56,5 +56,10 @@ def leave_game(data):
     emit('update_lobby', player, room=player['code'])
 
 
+@socketio.on('join')
+def join(data):
+    join_room(data.get('session_code'))
+
+
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=5000, allow_unsafe_werkzeug=True)
