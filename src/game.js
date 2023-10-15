@@ -6,9 +6,6 @@ const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
 
 const config = {
     type: Phaser.AUTO,
-    width: '100%',
-    height: '100%',
-    parent: 'gameContainer',
     scene: {
         preload: preload,
         create: create,

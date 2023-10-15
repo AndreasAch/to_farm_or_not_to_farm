@@ -3,25 +3,45 @@
 <head>
     <title>To Farm or Not to Farm - Lobby</title>
     <link rel="preload" as="font" href="assets/fonts/Righteous.ttf" type="font/ttf" crossOrigin="anonymous"/>
-    <link rel="stylesheet" href="assets/font.css">
+    <meta name="viewport" content="width = device-width, initial-scale =1.0, maximum-scale = 1.0, minimum-scale = 1.0, user-scalable = 0,minimal-ui=1.0" />
+<!--    <link rel="stylesheet" href="assets/font.css">-->
 
     <style>
-        body, html {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /*body, html {*/
+        /*    height: 100%;*/
+        /*    width: 100%;*/
+        /*    margin: 0;*/
+        /*    display: flex;*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*}*/
+
+        /*#gameWrapper {*/
+        /*    width: 100%; !* Fixed width *!*/
+        /*    height: 100%; !* Take full height of parent *!*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*}*/
+
+        @font-face {
+            font-family: Righteous;
+            src: url('assets/fonts/Righteous.ttf');
         }
 
-        #gameWrapper {
-            width: 100%; /* Fixed width */
-            height: 100%; /* Take full height of parent */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
