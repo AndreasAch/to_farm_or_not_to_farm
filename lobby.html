@@ -2,106 +2,39 @@
 <html lang="">
 <head>
     <title>To Farm or Not to Farm - Lobby</title>
+    <link rel="preload" as="font" href="assets/fonts/Righteous.ttf" type="font/ttf" crossOrigin="anonymous"/>
+    <link rel="stylesheet" href="assets/font.css">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #gameWrapper {
+            width: 360px; /* Fixed width */
+            height: 100%; /* Take full height of parent */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
 
-<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
-<script src="//cdn.jsdelivr.net/npm/phaser@3.51.0/dist/phaser.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/phaser-ui-tools@2.0.0-beta/dist/phaser-ui-tools.min.js"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.51.0/dist/phaser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser-ui-tools@2.0.0-beta/dist/phaser-ui-tools.min.js"></script>
+    <script src="src/game.js"></script>
 
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const playerName = params.get('playerName');
-    const sessionCode = params.get('sessionCode');
-
-    const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
-
-    const config = {
-        type: Phaser.AUTO,
-        width: 360,
-        height: 800,
-        scene: {
-            preload: preload,
-            create: create,
-            update: update
-        },
-        scale: {
-            mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
-            autoCenter: Phaser.Scale.CENTER_BOTH,
-        },
-        backgroundColor: '#ffffff',
-    };
-
-    const game = new Phaser.Game(config);
-    let textStyle = {'fill': '#FFF', 'font': '16px Courier New'};
-
-    function preload() {
-        socket.emit('join', {
-            player_name: playerName,
-            session_code: sessionCode
-        });
-
-        let assetRoot = '/to_farm_or_not_to_farm/assets/';
-        this.load.spritesheet('button', assetRoot + 'button.png', { frameWidth: 190, frameHeight: 49 });
-    }
-
-    function create() {
-        // Create your game objects and initialize game state
-        let buttonOne = new uiWidgets.TextButton(this, 0, 0, "button", leaveGame, this, 0, 0, 1, 0)
-            .setText("Leave Game", textStyle)
-            .eventTextYAdjustment(1);
-
-        this.header = new uiWidgets.TextSprite(this, 0, 0, "button").setText('', textStyle).setOrigin(0.0, 0.0);
-
-        // var buttonTwo = new uiWidgets.TextButton(this, 0, 0, "button", continueCallback, this, 1, 0, 2, 1)
-        //     .setText("Continue", textStyle)
-        //     .eventTextYAdjustment(3);
-        // var buttonThree = new uiWidgets.TextButton(this, 0, 0, "button", optionsCallback, this, 1, 0, 2, 1)
-        //     .setText("Options", textStyle)
-        //     .eventTextYAdjustment(3);
-
-        var column = new uiWidgets.Column(this, 200, 100);
-        column.addNode(buttonOne, paddingX=0, paddingY=10);
-        // column.addNode(buttonTwo, paddingX=0, paddingY=10);
-        // column.addNode(buttonThree, paddingX=0, paddingY=10);
-
-        socket.on('update_lobby', (players) => {
-            // const playerList = document.getElementById('playerList');
-            // playerList.innerHTML = '';
-            // players.forEach(player => {
-            //     const listItem = document.createElement('li');
-            //     listItem.textContent = player;
-            //     playerList.appendChild(listItem);
-            // });
-            let text = '';
-            players.forEach(player => {
-                text += player + '\n';
-            })
-            this.header.text.setText(text);
-        });
-    }
-
-    function update() {
-    }
-
-
-    function leaveGame() {
-        socket.emit('leave_game', {
-            player_name: playerName,
-            session_code: sessionCode
-        });
-
-        window.location.href = 'index.html';
-    }
-
-    window.addEventListener('beforeunload', () => {
-        // Emit a leave request when the tab is closed
-        socket.emit('leave_game', {
-            player_name: playerName,
-            session_code: sessionCode
-        });
-    });
-</script>
+    <div id="gameWrapper">
+        <div id="gameContainer"></div> <!-- Container for Phaser game -->
+        <!-- Other content goes here if needed -->
+    </div>
 
 </body>
 </html>
