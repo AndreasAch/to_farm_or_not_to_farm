@@ -64,7 +64,7 @@ function create() {
             fontSize: `${24 * scaleX}px`, // Scale the font size
             antialias: false
         })
-        .eventTextYAdjustment(1).setScale(scaleX, scaleY);
+        .eventTextYAdjustment(1).setScale(scaleX);
 
     let lobby = new uiWidgets.TextSprite(this, 38, 163, "lobbyContainer")
         .setText("", {
@@ -72,7 +72,7 @@ function create() {
         fontFamily: "Righteous",
         fontSize: `${24 * scaleX}px`, // Scale the font size
         antialias: false
-    }).setOrigin(0.0, 0.0).setScale(scaleX, scaleY);
+    }).setOrigin(0.0, 0.0).setScale(scaleX);
 
     // var buttonTwo = new uiWidgets.TextButton(this, 0, 0, "button", continueCallback, this, 1, 0, 2, 1)
     //     .setText("Continue", textStyle)
