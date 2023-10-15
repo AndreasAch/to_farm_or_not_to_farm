@@ -6,7 +6,6 @@ const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
 
 const config = {
     type: Phaser.AUTO,
-    height: '100%',
     parent: 'gameWrapper',
     scene: {
         preload: preload,
@@ -26,10 +25,13 @@ const config = {
     },
 };
 
-const game = new Phaser.Game(config);
-// const gameWidth = game.sys.game.canvas.width
-// const gameHeight = game.sys.game.canvas.height
-// console.log(gameWidth, gameHeight);
+let game = new Phaser.Game(config);
+
+const baseWidth = 360;
+const baseHeight = 800;
+
+let scaleX = 0;
+let scaleY = 0;
 
 let textStyle = {
     'fill': 'black',
@@ -44,18 +46,33 @@ function preload() {
         session_code: sessionCode
     });
 
+    scaleX = game.canvas.width / baseWidth;
+    scaleY = game.canvas.height / baseHeight;
+
     let assetRoot = '/to_farm_or_not_to_farm/assets/';
     this.load.spritesheet('button', assetRoot + 'button.png', { frameWidth: 204, frameHeight: 39 });
     this.load.image("lobbyContainer", assetRoot + "lobbyContainer.png");
 }
 
 function create() {
+
     // Create your game objects and initialize game state
     let leaveGameButton = new uiWidgets.TextButton(this, 0, 0, "button", leaveGame, this, 0, 0, 1, 0)
-        .setText("Leave Game", textStyle)
-        .eventTextYAdjustment(1);
+        .setText("Leave Game", {
+            fill: "black",
+            fontFamily: "Righteous",
+            fontSize: `${24 * scaleX}px`, // Scale the font size
+            antialias: false
+        })
+        .eventTextYAdjustment(1).setScale(scaleX, scaleY);
 
-    let lobby = new uiWidgets.TextSprite(this, 38, 163, "lobbyContainer").setText('', textStyle).setOrigin(0.0, 0.0);
+    let lobby = new uiWidgets.TextSprite(this, 38, 163, "lobbyContainer")
+        .setText("", {
+        fill: "black",
+        fontFamily: "Righteous",
+        fontSize: `${24 * scaleX}px`, // Scale the font size
+        antialias: false
+    }).setOrigin(0.0, 0.0).setScale(scaleX, scaleY);
 
     // var buttonTwo = new uiWidgets.TextButton(this, 0, 0, "button", continueCallback, this, 1, 0, 2, 1)
     //     .setText("Continue", textStyle)
