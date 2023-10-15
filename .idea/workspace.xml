@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="75f607e0-e621-4d89-9fe5-56b0a67256ca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/font.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fonts/Nexa-Heavy.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fonts/Righteous.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/lobbyContainer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobby.html" beforeDir="false" afterPath="$PROJECT_DIR$/lobby.html" afterDir="false" />
-    </list>
+    <list default="true" id="75f607e0-e621-4d89-9fe5-56b0a67256ca" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -126,7 +117,7 @@
       <workItem from="1697063773056" duration="2836000" />
       <workItem from="1697199231562" duration="7976000" />
       <workItem from="1697209015403" duration="12230000" />
-      <workItem from="1697372362086" duration="8080000" />
+      <workItem from="1697372362086" duration="8496000" />
     </task>
     <servers />
   </component>
