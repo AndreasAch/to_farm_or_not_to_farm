@@ -7,54 +7,51 @@
 <!--    <link rel="stylesheet" href="assets/font.css">-->
 
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        /*body, html {*/
+        /*    height: 100%;*/
+        /*    margin: 0;*/
+        /*    display: flex;*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*}*/
 
-        #gameWrapper {
-            width: 360px; /* Fixed width */
-            height: 100%; /* Take full height of parent */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+        /*#gameWrapper {*/
+        /*    width: 360px; !* Fixed width *!*/
+        /*    height: 100%; !* Take full height of parent *!*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*}*/
 
         @font-face {
             font-family: Righteous;
             src: url('assets/fonts/Righteous.ttf');
         }
 
-        /*body {*/
-        /*    padding: 0;*/
-        /*    margin: 0;*/
-        /*}*/
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0; /* Change to desired background color */
+        }
 
-        /*canvas {*/
-        /*    display: block;*/
-        /*    margin: 0;*/
-        /*    position: absolute;*/
-        /*    top: 50%;*/
-        /*    left: 50%;*/
-        /*    transform: translate(-50%, -50%);*/
-        /*}*/
+        #gameWrapper {
+            width: 360px; /* Set the initial width for your game */
+            height: 100%; /* Take the full height of the parent */
+            border: 1px solid #000; /* Optional: Add a border for visualization */
+        }
     </style>
 </head>
 <body>
+    <div id="gameWrapper"></div>
 
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.51.0/dist/phaser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/phaser-ui-tools@2.0.0-beta/dist/phaser-ui-tools.min.js"></script>
     <script src="src/game.js"></script>
-
-    <div id="gameWrapper">
-        <div id="gameContainer"></div> <!-- Container for Phaser game -->
-        <!-- Other content goes here if needed -->
-    </div>
 
 </body>
 </html>

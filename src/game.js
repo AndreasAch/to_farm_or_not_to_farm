@@ -8,7 +8,7 @@ const config = {
     type: Phaser.AUTO,
     width: 360,
     height: '100%',
-    parent: 'gameContainer',
+    parent: 'gameWrapper',
     scene: {
         preload: preload,
         create: create,
@@ -17,6 +17,8 @@ const config = {
     scale: {
         mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 360,
+        height: 800
     },
     backgroundColor: '#ffff9f',
     antialias: false,
