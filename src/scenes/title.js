@@ -26,7 +26,7 @@ export default class Title extends Phaser.Scene {
         this.height = this.game.screenBaseSize.height
         this.handlerScene = this.scene.get('handler')
 
-        let assetRoot = './assets/';
+        let assetRoot = '/to_farm_or_not_to_farm/assets/';
         this.load.spritesheet('button', assetRoot + 'button.png', { frameWidth: 269, frameHeight: 51 });
         this.load.image("lobbyContainer", assetRoot + "lobbyContainer.png");
     }
