@@ -160,7 +160,7 @@ export default class Login extends Phaser.Scene {
         //NameY :433
         //CodeY: 586
         function activateNameForm (gameObject) {
-            gameObject.on('pointerup', () => {
+            gameObject.on('pointerdown', () => {
                 switch(gameObject.y){
                     case 433: {
                         if (!gameState.isEnteringName) {
@@ -210,8 +210,8 @@ export default class Login extends Phaser.Scene {
         }
 
         function deactivateNameForm(gameObject) {
-            self.input.off('pointerup');
-            self.input.once('pointerup', () => {
+            self.input.off('pointerdown');
+            self.input.once('pointerdown', () => {
                 switch (gameObject.y) {
                     case 433: {
                         if (gameState.isEnteringName) {
@@ -362,5 +362,7 @@ function joinGame(){
 
 // Initiate the on-screen keyboard for mobile devices
 function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    let value = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    console.log(value);
+    return value;
 }
