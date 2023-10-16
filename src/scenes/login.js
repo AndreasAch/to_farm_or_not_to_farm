@@ -67,7 +67,7 @@ export default class Login extends Phaser.Scene {
         this.height = this.game.screenBaseSize.height
         this.handlerScene = this.scene.get('handler')
 
-        let assetRoot = '/to_farm_or_not_to_farm/assets/';
+        let assetRoot = 'assets/';
         this.load.image("joinContainer", assetRoot + "joinContainer.png");
         this.load.spritesheet('button', assetRoot + 'button.png', { frameWidth: 269, frameHeight: 51 });
 
