@@ -6,7 +6,6 @@
 let gameState = {}
 const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
 
-console.log("Outside class");
 // if (isMobileDevice()) {
 //     console.log("in If");
 //     gameState.hiddenInputName = document.createElement('inputName');
