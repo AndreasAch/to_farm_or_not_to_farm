@@ -30,23 +30,23 @@ const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
 //
 // }
 
-gameState.hiddenInputName = document.createElement('inputName');
+gameState.hiddenInputName = document.createElement('input');
 gameState.hiddenInputName.style.position = 'absolute';
 gameState.hiddenInputName.style.opacity = '0';
 gameState.hiddenInputName.style.zIndex = '-1';
 document.body.appendChild(gameState.hiddenInputName);
 
-gameState.hiddenInputName.addEventListener('inputName', function(event) {
+gameState.hiddenInputName.addEventListener('input', function(event) {
     gameState.name = event.target.value;
 });
 
-gameState.hiddenInputCode = document.createElement('inputCode');
+gameState.hiddenInputCode = document.createElement('input');
 gameState.hiddenInputCode.style.position = 'absolute';
 gameState.hiddenInputCode.style.opacity = '0';
 gameState.hiddenInputCode.style.zIndex = '-1';
 document.body.appendChild(gameState.hiddenInputCode);
 
-gameState.hiddenInputCode.addEventListener('inputCode', function(event) {
+gameState.hiddenInputCode.addEventListener('input', function(event) {
     gameState.code = event.target.value;
 });
 
@@ -196,6 +196,7 @@ export default class Login extends Phaser.Scene {
 
                             if (isMobileDevice()) {
                                 gameState.hiddenInputCode.focus();
+                                console.log("Should focus");
                             }
 
                             self.time.delayedCall(200, () => {
