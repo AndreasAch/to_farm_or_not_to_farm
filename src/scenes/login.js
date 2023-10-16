@@ -173,10 +173,10 @@ export default class Login extends Phaser.Scene {
                             gameState.formCursorName.setAlpha(0);
                             cursorTweenName.resume();
 
-                            if (isMobileDevice()) {
-                                gameState.hiddenInputName.focus();
-                            }
-
+                            // if (isMobileDevice()) {
+                            //     gameState.hiddenInputName.focus();
+                            // }
+                            gameState.hiddenInputName.focus();
                             self.time.delayedCall(200, () => {
                                 deactivateNameForm(gameObject);
                             })
@@ -194,11 +194,11 @@ export default class Login extends Phaser.Scene {
                             gameState.formCursorCode.setAlpha(0);
                             cursorTweenCode.resume();
 
-                            if (isMobileDevice()) {
-                                gameState.hiddenInputCode.focus();
-                                console.log("Should focus");
-                            }
-
+                            // if (isMobileDevice()) {
+                            //     gameState.hiddenInputCode.focus();
+                            //     console.log("Should focus");
+                            // }
+                            gameState.hiddenInputCode.focus();
                             self.time.delayedCall(200, () => {
                                 deactivateNameForm(gameObject);
                             })
@@ -231,9 +231,10 @@ export default class Login extends Phaser.Scene {
                             gameState.formCursorName.setAlpha(0);
                             cursorTweenName.pause();
                             // Deactivate the on-screen keyboard for mobile devices
-                            if (isMobileDevice()) {
-                                gameState.hiddenInputName.blur();
-                            }
+                            // if (isMobileDevice()) {
+                            //     gameState.hiddenInputName.blur();
+                            // }
+                            gameState.hiddenInputName.blur();
                         }
                         break;
                     }
@@ -253,9 +254,10 @@ export default class Login extends Phaser.Scene {
                             gameState.formCursorCode.setAlpha(0);
                             cursorTweenCode.pause();
                             // Deactivate the on-screen keyboard for mobile devices
-                            if (isMobileDevice()) {
-                                gameState.hiddenInputCode.blur();
-                            }
+                            // if (isMobileDevice()) {
+                            //     gameState.hiddenInputCode.blur();
+                            // }
+                            gameState.hiddenInputCode.blur();
                         }
                         break;
                     }
