@@ -2,7 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75f607e0-e621-4d89-9fe5-56b0a67256ca" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/lobby.html" beforeDir="false" afterPath="$PROJECT_DIR$/lobby.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/joinContainer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/leaf.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/legacy/indexOLD.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/legacy/scaleGame.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scenes/handler.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scenes/hub.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scenes/login.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scenes/preload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scenes/title.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/button.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/font.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/lobbyContainer.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lobbyContainer.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobby.html" beforeDir="false" afterPath="$PROJECT_DIR$/legacy/lobbyOLD.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/legacy/game.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,31 +57,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Uni Stuff/Masters/Year 2/GameDesignProject/to_farm_or_not_to_farm/assets/fonts",
-    "list.type.of.created.stylesheet": "CSS",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.4045977",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Uni Stuff/Masters/Year 2/GameDesignProject/to_farm_or_not_to_farm/assets&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4045977&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets" />
+      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\temp project" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets\fonts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm" />
+      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\legacy" />
+      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\src" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets\fonts" />
-      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\toFarmOrNotToFarm\src\frontend" />
-      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\toFarmOrNotToFarm\src\backend" />
-      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\toFarmOrNotToFarm\src\templates" />
     </key>
   </component>
   <component name="RunManager">
@@ -119,7 +137,8 @@
       <workItem from="1697063773056" duration="2836000" />
       <workItem from="1697199231562" duration="7976000" />
       <workItem from="1697209015403" duration="12230000" />
-      <workItem from="1697372362086" duration="12655000" />
+      <workItem from="1697372362086" duration="31494000" />
+      <workItem from="1697460807705" duration="10070000" />
     </task>
     <servers />
   </component>

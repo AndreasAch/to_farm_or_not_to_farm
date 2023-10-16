@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>To Farm or Not to Farm - Join Page</title>
+</head>
+<body>
+<!--<h1>Welcome!</h1>-->
+<!--<label for="playerName">Enter your name:</label>-->
+<!--<input type="text" id="playerName" placeholder="Your name"><br><br>-->
+<!--<label for="sessionCode">Enter the session code:</label>-->
+<!--<input type="text" id="sessionCode" placeholder="Session code"><br><br>-->
+<!--<button onclick="joinGame()">Join Game</button>-->
+
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+<script>
+
+    const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
+
+    socket.on('connect', () => {
+        console.log('Connected to server');
+    });
+
+    function joinGame() {
+        const playerName = document.getElementById('playerName').value;
+        const sessionCode = document.getElementById('sessionCode').value;
+
+
+        socket.emit('join_game', {
+            player_name: playerName,
+            session_code: sessionCode
+        });
+        // Redirect to the lobby page
+        window.location.href = `index.html?playerName=${playerName}&sessionCode=${sessionCode}`;
+    }
+</script>
+
+</body>
+</html>

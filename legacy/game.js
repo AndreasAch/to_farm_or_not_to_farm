@@ -15,8 +15,8 @@ const config = {
     scale: {
         mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 360,
-        height: 800
+        width: '100%',
+        height: '100%'
     },
     backgroundColor: '#ffff9f',
     antialias: false,
@@ -46,8 +46,7 @@ function preload() {
         session_code: sessionCode
     });
 
-    scaleX = game.canvas.width / baseWidth;
-    scaleY = game.canvas.height / baseHeight;
+
 
     let assetRoot = '/to_farm_or_not_to_farm/assets/';
     this.load.spritesheet('button', assetRoot + 'button.png', { frameWidth: 204, frameHeight: 39 });
@@ -64,15 +63,10 @@ function create() {
             fontSize: `${24 * scaleX}px`, // Scale the font size
             antialias: false
         })
-        .eventTextYAdjustment(1).setScale(scaleX);
+        .eventTextYAdjustment(1)
 
     let lobby = new uiWidgets.TextSprite(this, 38, 163, "lobbyContainer")
-        .setText("", {
-        fill: "black",
-        fontFamily: "Righteous",
-        fontSize: `${24 * scaleX}px`, // Scale the font size
-        antialias: false
-    }).setOrigin(0.0, 0.0).setScale(scaleX);
+        .setText("",).setOrigin(0.0, 0.0);
 
     // var buttonTwo = new uiWidgets.TextButton(this, 0, 0, "button", continueCallback, this, 1, 0, 2, 1)
     //     .setText("Continue", textStyle)
@@ -113,7 +107,7 @@ function leaveGame() {
         session_code: sessionCode
     });
 
-    window.location.href = 'index.html';
+    window.location.href = 'indexOLD.html';
 }
 
 window.addEventListener('beforeunload', () => {

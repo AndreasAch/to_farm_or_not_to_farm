@@ -2,7 +2,7 @@
 <html lang="">
 <head>
     <title>To Farm or Not to Farm - Lobby</title>
-    <link rel="preload" as="font" href="assets/fonts/Righteous.ttf" type="font/ttf" crossOrigin="anonymous"/>
+    <link rel="preload" as="font" href="../assets/fonts/Righteous.ttf" type="font/ttf" crossOrigin="anonymous"/>
 <!--    <meta name="viewport" content="width = device-width, initial-scale =1.0, maximum-scale = 1.0, minimum-scale = 1.0, user-scalable = 0,minimal-ui=1.0" />-->
 <!--        <link rel="stylesheet" href="assets/font.css">-->
 
@@ -26,7 +26,7 @@
 
         @font-face {
             font-family: Righteous;
-            src: url('assets/fonts/Righteous.ttf');
+            src: url('../assets/fonts/Righteous.ttf');
         }
 
         body, html {
@@ -39,7 +39,6 @@
             align-items: center;
             justify-content: center;
             height: 100%;
-            width: 360px;
         }
     </style>
 </head>
@@ -48,7 +47,7 @@
         <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
         <script src="//cdn.jsdelivr.net/npm/phaser@3.51.0/dist/phaser.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/phaser-ui-tools@2.0.0-beta/dist/phaser-ui-tools.min.js"></script>
-        <script src="src/game.js"></script>
+        <script type='module' src="scaleGame.js"></script>
     </div>
 </body>
 </html>
