@@ -29,6 +29,8 @@ const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
 // }
 
 let gameState = {}
+let maxNameLength = 18;
+let maxCodeLength = 6;
 
 // gameState.hiddenInputCode = document.createElement('input');
 // gameState.hiddenInputCode.style.position = 'absolute';
@@ -56,14 +58,40 @@ export default class Login extends Phaser.Scene {
     preload() {
         gameState = {};
 
-        gameState.hiddenInput = document.createElement('input');
-        gameState.hiddenInput.style.position = 'absolute';
-        gameState.hiddenInput.style.opacity = '0';
-        gameState.hiddenInput.style.zIndex = '-1';
-        document.body.appendChild(gameState.hiddenInput);
+        gameState.hiddenInputName = document.createElement('input');
+        gameState.hiddenInputName.style.position = 'absolute';
+        gameState.hiddenInputName.style.opacity = '0';
+        gameState.hiddenInputName.style.zIndex = '-1';
+        document.body.appendChild(gameState.hiddenInputName);
 
-        gameState.hiddenInput.addEventListener('input', function(event) {
-            gameState.name = event.target.value;
+        //inputType insertText
+        //deleteContentBackward
+        gameState.hiddenInputName.addEventListener('input', function(event) {
+            if (gameState.name.length <= maxNameLength) {
+                if (event.inputType === 'insertText' && gameState.name.length < maxNameLength) {
+                    gameState.name += event.data;
+                } else if (event.inputType === 'deleteContentBackward' && gameState.name.length > 0) {
+                    gameState.name = gameState.name.slice(0, -1);
+                }
+            }
+        });
+
+
+
+        gameState.hiddenInputCode = document.createElement('input');
+        gameState.hiddenInputCode.style.position = 'absolute';
+        gameState.hiddenInputCode.style.opacity = '0';
+        gameState.hiddenInputCode.style.zIndex = '-1';
+        document.body.appendChild(gameState.hiddenInputCode);
+
+        gameState.hiddenInputCode.addEventListener('input', function(event) {
+            if (gameState.code.length <= maxCodeLength) {
+                if (event.inputType === 'insertText' && gameState.code.length < maxCodeLength) {
+                    gameState.code += event.data;
+                } else if (event.inputType === 'deleteContentBackward' && gameState.code.length > 0) {
+                    gameState.code = gameState.code.slice(0, -1);
+                }
+            }
         });
 
 
@@ -79,8 +107,6 @@ export default class Login extends Phaser.Scene {
     }
 
     create() {
-        console.log(gameState);
-
         const { width, height } = this;
         // CONFIG SCENE
         this.handlerScene.updateResize(this);
@@ -177,14 +203,11 @@ export default class Login extends Phaser.Scene {
                             if (gameState.name === '') {
                                 gameState.name = '';
                             }
-
                             gameState.formCursorName.setAlpha(0);
                             cursorTweenName.resume();
 
-                            // if (isMobileDevice()) {
-                            //     gameState.hiddenInputName.focus();
-                            // }
-                            gameState.hiddenInput.focus();
+                            gameState.hiddenInputName.focus();
+                            gameState.hiddenInputCode.blur();
                             self.time.delayedCall(200, () => {
                                 deactivateNameForm(gameObject);
                             })
@@ -202,11 +225,8 @@ export default class Login extends Phaser.Scene {
                             gameState.formCursorCode.setAlpha(0);
                             cursorTweenCode.resume();
 
-                            // if (isMobileDevice()) {
-                            //     gameState.hiddenInputCode.focus();
-                            //     console.log("Should focus");
-                            // }
-                            gameState.hiddenInput.focus();
+                            gameState.hiddenInputCode.focus();
+                            gameState.hiddenInputName.blur();
                             self.time.delayedCall(200, () => {
                                 deactivateNameForm(gameObject);
                             })
@@ -238,11 +258,8 @@ export default class Login extends Phaser.Scene {
                             // Remove cursor
                             gameState.formCursorName.setAlpha(0);
                             cursorTweenName.pause();
-                            // Deactivate the on-screen keyboard for mobile devices
-                            // if (isMobileDevice()) {
-                            //     gameState.hiddenInputName.blur();
-                            // }
-                            gameState.hiddenInput.blur();
+
+                            gameState.hiddenInputName.blur();
                         }
                         break;
                     }
@@ -261,11 +278,8 @@ export default class Login extends Phaser.Scene {
                             // Remove cursor
                             gameState.formCursorCode.setAlpha(0);
                             cursorTweenCode.pause();
-                            // Deactivate the on-screen keyboard for mobile devices
-                            // if (isMobileDevice()) {
-                            //     gameState.hiddenInputCode.blur();
-                            // }
-                            gameState.hiddenInput.blur();
+
+                            gameState.hiddenInputCode.blur();
                         }
                         break;
                     }
@@ -274,69 +288,45 @@ export default class Login extends Phaser.Scene {
         }
 
         // Log key strokes if isEnteringName === true
-        this.input.keyboard.on('keydown', (event) => {
-            if (gameState.isEnteringName) {
-                // Cap the name length to keep the text from overflowing the form
-                const maxNameLength = 18
-                // Implement backspace
-                if (event.keyCode === 8 && gameState.name.length > 0) {
-                    gameState.name = gameState.name.slice(0, -1);
-
-                    // Add any other characters you want to allow
-                } else if (event.key.length === 1 && event.key.match(/[a-zA-Z0-9\s\-_]/) && gameState.name.length < maxNameLength) {
-                    gameState.name += event.key;
-
-                    // Gently informs the player that its time to stop typing
-                } else if (gameState.name.length === maxNameLength) {
-                    self.cameras.main.shake(30, .0010, false);
-                }
-            }
-
-            if (gameState.isEnteringCode) {
-                const maxCodeLength = 6
-                // Implement backspace
-                if (event.keyCode === 8 && gameState.code.length > 0) {
-                    gameState.code = gameState.code.slice(0, -1);
-
-                    // Add any other characters you want to allow
-                } else if (event.key.length === 1 && event.key.match(/[a-zA-Z0-9\s\-_]/) && gameState.code.length < maxCodeLength) {
-                    gameState.code += event.key;
-
-                    // Gently informs the player that its time to stop typing
-                } else if (gameState.code.length === maxCodeLength) {
-                    self.cameras.main.shake(30, .0010, false);
-                }
-            }
-        });
-
-        function startgame() {
-            if (gameState.name === 'Enter your name...' || gameState.name === '') {
-                gameState.name = 'Punk Rock Samurai'; // Set your own default name
-            }
-
-            console.log(`Name: ${gameState.name}`);
-
-            // Replace with your code to start the game
-            self.cameras.main.fadeOut(1000);
-            self.cameras.main.shake(1000, .0030, false);
-        }
-
-        // Updates the button sprite in response to pointerover/ pointerout events
-        function animateButton(button) {
-            button.on('pointerover', function () {
-                this.setTexture('rectangularButtonHovered');
-            });
-
-            button.on('pointerout', function () {
-                this.setTexture('rectangularButton');
-            });
-        }
-
+        // this.input.keyboard.on('keydown', (event) => {
+        //     if (gameState.isEnteringName && gameState.name.length <= maxNameLength) {
+        //         // Cap the name length to keep the text from overflowing the form
+        //         // Implement backspace
+        //         if (event.keyCode === 8 && gameState.name.length > 0) {
+        //             gameState.name = gameState.name.slice(0, -1);
+        //
+        //             // Add any other characters you want to allow
+        //         } else if (event.key.length === 1 && event.key.match(/[a-zA-Z0-9\s\-_]/) && gameState.name.length < maxNameLength) {
+        //             console.log('append');
+        //             gameState.name += event.key;
+        //
+        //             // Gently informs the player that its time to stop typing
+        //         } else if (gameState.name.length === maxNameLength) {
+        //             self.cameras.main.shake(30, .0010, false);
+        //         }
+        //     }
+        //
+        //     if (gameState.isEnteringCode) {
+        //         // Implement backspace
+        //         if (event.keyCode === 8 && gameState.code.length > 0) {
+        //             gameState.code = gameState.code.slice(0, -1);
+        //
+        //             // Add any other characters you want to allow
+        //         } else if (event.key.length === 1 && event.key.match(/[a-zA-Z0-9\s\-_]/) && gameState.code.length < maxCodeLength) {
+        //             gameState.code += event.key;
+        //
+        //             // Gently informs the player that its time to stop typing
+        //         } else if (gameState.code.length === maxCodeLength) {
+        //             self.cameras.main.shake(30, .0010, false);
+        //         }
+        //     }
+        //     console.log(gameState.name.length);
+        // });
     }
     update () {
         let textWidth = 0;
 
-        if (gameState.isEnteringName) {
+        if (gameState.isEnteringName && gameState.name.length <= maxNameLength) {
             // Dynamically updates the displayed input text as it is being typed
             gameState.nameText.setText(gameState.name);
             textWidth = gameState.nameText.width;
@@ -345,7 +335,7 @@ export default class Login extends Phaser.Scene {
             gameState.formCursorName.x = gameState.nameText.x + textWidth;
         }
 
-        if (gameState.isEnteringCode) {
+        if (gameState.isEnteringCode && gameState.code.length <= maxCodeLength) {
             // Dynamically updates the displayed input text as it is being typed
             gameState.codeText.setText(gameState.code);
             textWidth = gameState.codeText.width;
