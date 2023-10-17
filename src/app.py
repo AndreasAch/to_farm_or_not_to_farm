@@ -26,20 +26,25 @@ def generate_session_code():
 def get_session_code():
     session_code = generate_session_code()
     join_room(session_code)
+    sessions[session_code] = []
     emit('session_code', session_code, room=session_code)
 
 
-@socketio.on('join_game')
+@socketio.on('request_join')
 def join_game(data):
     player = {
         'code': data.get('session_code'),
         'name': data.get('player_name')
     }
     if player['code'] not in sessions:
-        sessions[player['code']] = []
+        # Add emit here to communicate error to client
+        # sessions[player['code']] = []
+        return
+
     sessions[player['code']].append(player['name'])
     join_room(player['code'])
     emit('player_joined', player, room=player['code'])
+    emit('join_approve', player, room=player['code'])
     time.sleep(1)
     emit('update_lobby', sessions[player['code']], room=player['code'])
 

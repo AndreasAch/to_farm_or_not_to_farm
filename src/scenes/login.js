@@ -286,42 +286,6 @@ export default class Login extends Phaser.Scene {
                 }
             });
         }
-
-        // Log key strokes if isEnteringName === true
-        // this.input.keyboard.on('keydown', (event) => {
-        //     if (gameState.isEnteringName && gameState.name.length <= maxNameLength) {
-        //         // Cap the name length to keep the text from overflowing the form
-        //         // Implement backspace
-        //         if (event.keyCode === 8 && gameState.name.length > 0) {
-        //             gameState.name = gameState.name.slice(0, -1);
-        //
-        //             // Add any other characters you want to allow
-        //         } else if (event.key.length === 1 && event.key.match(/[a-zA-Z0-9\s\-_]/) && gameState.name.length < maxNameLength) {
-        //             console.log('append');
-        //             gameState.name += event.key;
-        //
-        //             // Gently informs the player that its time to stop typing
-        //         } else if (gameState.name.length === maxNameLength) {
-        //             self.cameras.main.shake(30, .0010, false);
-        //         }
-        //     }
-        //
-        //     if (gameState.isEnteringCode) {
-        //         // Implement backspace
-        //         if (event.keyCode === 8 && gameState.code.length > 0) {
-        //             gameState.code = gameState.code.slice(0, -1);
-        //
-        //             // Add any other characters you want to allow
-        //         } else if (event.key.length === 1 && event.key.match(/[a-zA-Z0-9\s\-_]/) && gameState.code.length < maxCodeLength) {
-        //             gameState.code += event.key;
-        //
-        //             // Gently informs the player that its time to stop typing
-        //         } else if (gameState.code.length === maxCodeLength) {
-        //             self.cameras.main.shake(30, .0010, false);
-        //         }
-        //     }
-        //     console.log(gameState.name.length);
-        // });
     }
     update () {
         let textWidth = 0;
@@ -347,10 +311,20 @@ export default class Login extends Phaser.Scene {
 }
 
 function joinGame(){
-    socket.emit('join_game', {
+    if (gameState.name.length === 0 || gameState.code.length < 6) {
+        //placeholder error text
+        console.log("Please enter a valid name or session code");
+        return
+    }
+
+    socket.emit('request_join', {
         player_name: gameState.name,
         session_code: gameState.code
     });
+
+}
+
+socket.on('join_approve', () => {
     let name = gameState.name;
     let code = gameState.code;
 
@@ -358,11 +332,9 @@ function joinGame(){
     gameState.codeText.destroy();
     gameState.formCursorCode.destroy();
     gameState.formCursorName.destroy();
-    // gameState.remove();
+
     gameState.name = '';
     gameState.code = '';
-    // gameState.nameText.setText('');
-    // gameState.codeText.setText('');
 
     this.sceneStopped = true
     this.scene.stop('login')
@@ -371,7 +343,7 @@ function joinGame(){
         player_name: name,
         session_code: code
     });
-}
+});
 
 // Initiate the on-screen keyboard for mobile devices
 function isMobileDevice() {
