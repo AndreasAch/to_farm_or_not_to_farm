@@ -286,6 +286,26 @@ export default class Login extends Phaser.Scene {
                 }
             });
         }
+        socket.on('join_approve', () => {
+            let name = gameState.name;
+            let code = gameState.code;
+
+            gameState.nameText.destroy();
+            gameState.codeText.destroy();
+            gameState.formCursorCode.destroy();
+            gameState.formCursorName.destroy();
+
+            gameState.name = '';
+            gameState.code = '';
+
+            this.sceneStopped = true
+            this.scene.stop('login')
+            this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
+            this.handlerScene.launchScene('title', {
+                player_name: name,
+                session_code: code
+            });
+        })
     }
     update () {
         let textWidth = 0;
@@ -323,27 +343,6 @@ function joinGame(){
     });
 
 }
-
-socket.on('join_approve', () => {
-    let name = gameState.name;
-    let code = gameState.code;
-
-    gameState.nameText.destroy();
-    gameState.codeText.destroy();
-    gameState.formCursorCode.destroy();
-    gameState.formCursorName.destroy();
-
-    gameState.name = '';
-    gameState.code = '';
-
-    this.sceneStopped = true
-    this.scene.stop('login')
-    this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
-    this.handlerScene.launchScene('title', {
-        player_name: name,
-        session_code: code
-    });
-});
 
 // Initiate the on-screen keyboard for mobile devices
 function isMobileDevice() {
