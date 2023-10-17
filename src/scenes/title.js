@@ -98,6 +98,7 @@ function leaveGame() {
         player_name: playerName,
         session_code: sessionCode
     });
+    console.log(sessionCode);
     this.sceneStopped = true
     this.scene.stop('title')
     this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
