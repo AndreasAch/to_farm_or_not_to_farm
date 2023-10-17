@@ -57,7 +57,7 @@ export default class Title extends Phaser.Scene {
                 padding: 10
             });
 
-        this.instruction = this.add.text(70,0,"Waiting for host to start the game...",{
+        this.instruction = this.add.text(70,80,"Waiting for host to start the game...",{
             fill: "black",
             fontFamily: "Righteous",
             fontSize: '35px', // Scale the font size
@@ -67,9 +67,9 @@ export default class Title extends Phaser.Scene {
             fixedWidth: 400,
         });
 
-        this.column = new uiWidgets.Column(this, 270, 400);
+        this.column = new uiWidgets.Column(this, 270, 480);
         this.column.addNode(this.lobby, 0, 464);
-        this.column.addNode(this.leaveGameButton, 0, 162);
+        this.column.addNode(this.leaveGameButton, 0, 105);
 
         // const params = new URLSearchParams(window.location.search);
         // const playerName = params.get('playerName');

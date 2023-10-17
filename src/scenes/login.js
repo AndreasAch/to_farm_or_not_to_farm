@@ -2,8 +2,6 @@
 // const playerName = params.get('playerName');
 // const sessionCode = params.get('sessionCode');
 //
-
-let gameState = {}
 const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
 
 // if (isMobileDevice()) {
@@ -30,25 +28,17 @@ const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
 //
 // }
 
-gameState.hiddenInputName = document.createElement('input');
-gameState.hiddenInputName.style.position = 'absolute';
-gameState.hiddenInputName.style.opacity = '0';
-gameState.hiddenInputName.style.zIndex = '-1';
-document.body.appendChild(gameState.hiddenInputName);
+let gameState = {}
 
-gameState.hiddenInputName.addEventListener('input', function(event) {
-    gameState.name = event.target.value;
-});
-
-gameState.hiddenInputCode = document.createElement('input');
-gameState.hiddenInputCode.style.position = 'absolute';
-gameState.hiddenInputCode.style.opacity = '0';
-gameState.hiddenInputCode.style.zIndex = '-1';
-document.body.appendChild(gameState.hiddenInputCode);
-
-gameState.hiddenInputCode.addEventListener('input', function(event) {
-    gameState.code = event.target.value;
-});
+// gameState.hiddenInputCode = document.createElement('input');
+// gameState.hiddenInputCode.style.position = 'absolute';
+// gameState.hiddenInputCode.style.opacity = '0';
+// gameState.hiddenInputCode.style.zIndex = '-1';
+// document.body.appendChild(gameState.hiddenInputCode);
+//
+// gameState.hiddenInputCode.addEventListener('input', function(event) {
+//     gameState.code = event.target.value;
+// });
 
 export default class Login extends Phaser.Scene {
 
@@ -56,11 +46,27 @@ export default class Login extends Phaser.Scene {
     handlerScene = false
     sceneStopped = false
 
+
+
+
     constructor() {
         super({ key: 'login' })
     }
 
     preload() {
+        gameState = {};
+
+        gameState.hiddenInput = document.createElement('input');
+        gameState.hiddenInput.style.position = 'absolute';
+        gameState.hiddenInput.style.opacity = '0';
+        gameState.hiddenInput.style.zIndex = '-1';
+        document.body.appendChild(gameState.hiddenInput);
+
+        gameState.hiddenInput.addEventListener('input', function(event) {
+            gameState.name = event.target.value;
+        });
+
+
         this.sceneStopped = false
         this.width = this.game.screenBaseSize.width
         this.height = this.game.screenBaseSize.height
@@ -73,6 +79,8 @@ export default class Login extends Phaser.Scene {
     }
 
     create() {
+        console.log(gameState);
+
         const { width, height } = this;
         // CONFIG SCENE
         this.handlerScene.updateResize(this);
@@ -176,7 +184,7 @@ export default class Login extends Phaser.Scene {
                             // if (isMobileDevice()) {
                             //     gameState.hiddenInputName.focus();
                             // }
-                            gameState.hiddenInputName.focus();
+                            gameState.hiddenInput.focus();
                             self.time.delayedCall(200, () => {
                                 deactivateNameForm(gameObject);
                             })
@@ -198,7 +206,7 @@ export default class Login extends Phaser.Scene {
                             //     gameState.hiddenInputCode.focus();
                             //     console.log("Should focus");
                             // }
-                            gameState.hiddenInputCode.focus();
+                            gameState.hiddenInput.focus();
                             self.time.delayedCall(200, () => {
                                 deactivateNameForm(gameObject);
                             })
@@ -234,7 +242,7 @@ export default class Login extends Phaser.Scene {
                             // if (isMobileDevice()) {
                             //     gameState.hiddenInputName.blur();
                             // }
-                            gameState.hiddenInputName.blur();
+                            gameState.hiddenInput.blur();
                         }
                         break;
                     }
@@ -257,7 +265,7 @@ export default class Login extends Phaser.Scene {
                             // if (isMobileDevice()) {
                             //     gameState.hiddenInputCode.blur();
                             // }
-                            gameState.hiddenInputCode.blur();
+                            gameState.hiddenInput.blur();
                         }
                         break;
                     }
@@ -353,13 +361,25 @@ function joinGame(){
         player_name: gameState.name,
         session_code: gameState.code
     });
+    let name = gameState.name;
+    let code = gameState.code;
+
+    gameState.nameText.destroy();
+    gameState.codeText.destroy();
+    gameState.formCursorCode.destroy();
+    gameState.formCursorName.destroy();
+    // gameState.remove();
+    gameState.name = '';
+    gameState.code = '';
+    // gameState.nameText.setText('');
+    // gameState.codeText.setText('');
 
     this.sceneStopped = true
     this.scene.stop('login')
     this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
     this.handlerScene.launchScene('title', {
-        player_name: gameState.name,
-        session_code: gameState.code
+        player_name: name,
+        session_code: code
     });
 }
 
