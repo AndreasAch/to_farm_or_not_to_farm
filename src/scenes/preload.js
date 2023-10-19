@@ -1,5 +1,5 @@
-import { playerName } from './main.js';
-import { sessionCode } from './main.js';
+import { playerName } from '../../main.js';
+import { sessionCode } from '../../main.js';
 
 export default class Preload extends Phaser.Scene {
 
