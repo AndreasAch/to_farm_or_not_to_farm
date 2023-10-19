@@ -1,7 +1,7 @@
-import Handler from './to_farm_or_not_to_farm/src/scenes/handler.js'
-import Title from './to_farm_or_not_to_farm/src/scenes/title.js'
-import Preload from './to_farm_or_not_to_farm/src/scenes/preload.js'
-import Hub from './to_farm_or_not_to_farm/src/scenes/hub.js'
+import Handler from './src/scenes/handler.js'
+import Title from './src/scenes/title.js'
+import Preload from './src/scenes/preload.js'
+import Hub from './src/scenes/hub.js'
 
 // Aspect Ratio 16:9 - Portrait
 const MAX_SIZE_WIDTH_SCREEN = 1920
