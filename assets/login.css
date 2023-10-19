@@ -86,6 +86,8 @@ button {
     width: 57%;
     height: 11%;
     color: black;
+    padding-bottom: 1%;
+    padding-left: 1%;
     background-image: url('./buttonNormal.png'); /* Replace with your image file */
     background-size: cover;
     background-repeat: no-repeat;
