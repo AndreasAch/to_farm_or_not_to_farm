@@ -139,8 +139,8 @@ class FarmApp(QWidget):
             self.update_player_list()
 
         try:
-            #self.socket.connect('https://to-farm-or-not-tofarm.onrender.com')
-            self.socket.connect('http://127.0.0.1:5000')
+            self.socket.connect('https://to-farm-or-not-tofarm.onrender.com')
+            #self.socket.connect('http://127.0.0.1:5000')
         except:
             print('Server is not running')
             self.label.setText('Server is not running')

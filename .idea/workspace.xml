@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75f607e0-e621-4d89-9fe5-56b0a67256ca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/buttonNormal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/buttonPressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/newIndex.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scenes/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scenes/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/preload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scenes/title.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/title.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,8 +63,8 @@
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets\fonts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\legacy" />
+      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\src" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets\fonts" />
@@ -137,7 +126,7 @@
       <workItem from="1697544613581" duration="17162000" />
       <workItem from="1697574520446" duration="747000" />
       <workItem from="1697584678424" duration="1121000" />
-      <workItem from="1697743097891" duration="6446000" />
+      <workItem from="1697743097891" duration="6768000" />
     </task>
     <servers />
   </component>
