@@ -1,8 +1,7 @@
-import Handler from './src/scenes/handler.js'
-import Title from './src/scenes/title.js'
-import Preload from './src/scenes/preload.js'
-import Hub from './src/scenes/hub.js'
-import Login from './src/scenes/login.js'
+import Handler from '/src/scenes/handler.js'
+import Title from '/src/scenes/title.js'
+import Preload from '/src/scenes/preload.js'
+import Hub from '/src/scenes/hub.js'
 
 // Aspect Ratio 16:9 - Portrait
 const MAX_SIZE_WIDTH_SCREEN = 1920
@@ -11,6 +10,12 @@ const MIN_SIZE_WIDTH_SCREEN = 270
 const MIN_SIZE_HEIGHT_SCREEN = 480
 const SIZE_WIDTH_SCREEN = 540
 const SIZE_HEIGHT_SCREEN = 960
+
+const params = new URLSearchParams(window.location.search);
+export const playerName = params.get('playerName');
+export const sessionCode = params.get('sessionCode');
+console.log(playerName);
+console.log(sessionCode);
 
 const config = {
     type: Phaser.AUTO,
@@ -31,7 +36,7 @@ const config = {
     dom: {
         createContainer: true
     },
-    scene: [Handler, Hub, Preload, Title, Login]
+    scene: [Handler, Hub, Preload, Title]
 
 }
 

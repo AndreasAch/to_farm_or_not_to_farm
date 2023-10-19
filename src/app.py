@@ -42,9 +42,10 @@ def join_game(data):
         return
 
     sessions[player['code']].append(player['name'])
+    print(sessions)
     join_room(player['code'])
     emit('player_joined', player, room=player['code'])
-    emit('join_approve', player, room=player['code']+'#'+player['name'])
+    emit('join_approve' + player['name'], player, room=player['code'])
     time.sleep(1)
     emit('update_lobby', sessions[player['code']], room=player['code'])
 
@@ -66,7 +67,6 @@ def join(data):
     code = data.get('session_code')
     name = data.get('player_na,e')
     join_room(code)
-    join_room(code + '#' + name)
 
 
 if __name__ == '__main__':

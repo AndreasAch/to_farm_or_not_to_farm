@@ -1,3 +1,6 @@
+import { playerName } from '../../to_farm_or_not_to_farm/main.js';
+import { sessionCode } from '../../to_farm_or_not_to_farm/main.js';
+
 export default class Preload extends Phaser.Scene {
 
     width = null
@@ -30,8 +33,8 @@ export default class Preload extends Phaser.Scene {
                 callback: () => {
                     this.sceneStopped = true
                     this.scene.stop('preload')
-                    this.handlerScene.cameras.main.setBackgroundColor("#ffafaf")
-                    this.handlerScene.launchScene('login')
+                    this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
+                    this.handlerScene.launchScene('title', {player_name: playerName, session_code: sessionCode});
                 },
                 loop: false
             })

@@ -1,44 +1,96 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--  <title>To Farm or Not to Farm - Join Page</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Welcome!</h1>-->
+<!--<label for="playerName">Enter your name:</label>-->
+<!--<input type="text" id="playerName" placeholder="Your name"><br><br>-->
+<!--<label for="sessionCode">Enter the session code:</label>-->
+<!--<input type="text" id="sessionCode" placeholder="Session code"><br><br>-->
+<!--<button onclick="joinGame()">Join Game</button>-->
+
+<!--<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>-->
+<!--<script>-->
+
+<!--  const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');-->
+
+<!--  socket.on('connect', () => {-->
+<!--    console.log('Connected to server');-->
+<!--  });-->
+
+<!--  function joinGame() {-->
+<!--    const playerName = document.getElementById('playerName').value;-->
+<!--    const sessionCode = document.getElementById('sessionCode').value;-->
+
+
+<!--    socket.emit('join_game', {-->
+<!--      player_name: playerName,-->
+<!--      session_code: sessionCode-->
+<!--    });-->
+<!--    // Redirect to the lobby page-->
+<!--    window.location.href = `lobby.html?playerName=${playerName}&sessionCode=${sessionCode}`;-->
+<!--  }-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
 <!DOCTYPE html>
-<html lang="">
-
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='chrome=1'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-
-    <link rel="preload" as="font" href="assets/fonts/Righteous.ttf" type="font/ttf" crossOrigin="anonymous"/>
-    <link rel='icon' href='assets/leaf.ico' />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #ffffff;
-            overflow: hidden;
-        }
-        @font-face {
-            font-family: Righteous;
-            src: url('assets/fonts/Righteous.ttf');
-        }
-
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
-
-    </style>
-    <title>To Farm or Not to Farm </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preload" as="font" href="assets/fonts/Righteous.ttf" type="font/ttf" crossOrigin="anonymous"/>
+  <link rel='icon' href='assets/leaf.ico' />
+  <link rel="stylesheet" type="text/css" href="./assets/login.css"> <!-- Include the CSS file -->
+  <title>Join Session</title>
 </head>
-
 <body>
-    <div id='game'></div>
-    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.51.0/dist/phaser.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/phaser-ui-tools@2.0.0-beta/dist/phaser-ui-tools.min.js"></script>
-    <script src='main.js' type='module'></script>
-</body>
+<div id="container">
+  <img src="./assets/joinContainer.png" alt="Your Image">
+  <div class="overlay">
+    <input type="text" id='name' maxlength="18" placeholder="Enter your name">
+    <input type="text" id='code' maxlength="6" placeholder="Enter the session code">
+    <button onclick="joinGame()">Join Session</button>
+  </div>
+</div>
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+<script>
 
+  //const socket = io.connect('http://127.0.0.1:5000');
+  const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
+
+  socket.on('connect', () => {
+    console.log('Connected to server');
+  });
+
+  function joinGame() {
+    const playerName = document.getElementById('name').value;
+    const sessionCode = document.getElementById('code').value;
+
+
+    if (playerName.length === 0 || sessionCode.length < 6) {
+      //placeholder error text
+      console.log("Please enter a valid name or session code");
+      return
+    }
+    socket.emit('request_join', {
+      player_name: playerName,
+      session_code: sessionCode
+    });
+
+    socket.on('join_approve' + playerName, (player) => {
+        window.location.href = `startGame.html?playerName=${playerName}&sessionCode=${sessionCode}`;
+    })
+
+  }
+</script>
+
+</body>
 </html>
+
+

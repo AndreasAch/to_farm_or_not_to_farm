@@ -1,4 +1,11 @@
 const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
+//const socket = io.connect('http://127.0.0.1:5000');
+
+// const params = new URLSearchParams(window.location.search);
+// const playerName = params.get('playerName');
+// const sessionCode = params.get('sessionCode');
+
+
 let sessionCode;
 let playerName;
 
@@ -102,8 +109,9 @@ function leaveGame() {
     this.sceneStopped = true
     this.scene.stop('title')
     this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
-    this.handlerScene.launchScene('login');
-    // window.location.href = 'indexOLD.html';
+    //this.handlerScene.launchScene('login');
+    this.sys.game.destroy(true);
+    window.location.href = 'index.html';
 
 }
 

@@ -2,7 +2,8 @@
 // const playerName = params.get('playerName');
 // const sessionCode = params.get('sessionCode');
 //
-const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
+//const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
+const socket = io.connect('http://127.0.0.1:5000');
 
 // if (isMobileDevice()) {
 //     console.log("in If");
@@ -31,6 +32,8 @@ const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
 let gameState = {}
 let maxNameLength = 18;
 let maxCodeLength = 6;
+let playerName;
+let sessionCode;
 
 // gameState.hiddenInputCode = document.createElement('input');
 // gameState.hiddenInputCode.style.position = 'absolute';
@@ -47,9 +50,6 @@ export default class Login extends Phaser.Scene {
     // Vars
     handlerScene = false
     sceneStopped = false
-
-
-
 
     constructor() {
         super({ key: 'login' })
@@ -115,7 +115,7 @@ export default class Login extends Phaser.Scene {
         this.input.keyboard.createCursorKeys();
 
         this.add.image(269,485, 'joinContainer');
-        this.joinGameButton = new uiWidgets.TextButton(this, 0, 0, "button", joinGame, this, 0, 0, 1, 0)
+        this.joinGameButton = new uiWidgets.TextButton(this, 0, 0, "button", joinGame, this, 1, 0, 1, 0)
             .setText("Join Game", {
                 fill: "black",
                 fontFamily: "Righteous",
@@ -286,26 +286,6 @@ export default class Login extends Phaser.Scene {
                 }
             });
         }
-        socket.on('join_approve', () => {
-            let name = gameState.name;
-            let code = gameState.code;
-
-            gameState.nameText.destroy();
-            gameState.codeText.destroy();
-            gameState.formCursorCode.destroy();
-            gameState.formCursorName.destroy();
-
-            gameState.name = '';
-            gameState.code = '';
-
-            this.sceneStopped = true
-            this.scene.stop('login')
-            this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
-            this.handlerScene.launchScene('title', {
-                player_name: name,
-                session_code: code
-            });
-        })
     }
     update () {
         let textWidth = 0;
@@ -336,12 +316,34 @@ function joinGame(){
         console.log("Please enter a valid name or session code");
         return
     }
+    playerName = gameState.name;
+    sessionCode = gameState.code;
 
     socket.emit('request_join', {
         player_name: gameState.name,
         session_code: gameState.code
     });
 
+    socket.on('join_approve' + playerName, (player) => {
+        let name = player['name'];
+        let code = player['code'];
+
+        gameState.nameText.destroy();
+        gameState.codeText.destroy();
+        gameState.formCursorCode.destroy();
+        gameState.formCursorName.destroy();
+
+        gameState.name = '';
+        gameState.code = '';
+
+        this.sceneStopped = true;
+        this.scene.stop('login');
+        this.handlerScene.cameras.main.setBackgroundColor("#ffffff");
+        this.handlerScene.launchScene('title', {
+            player_name: name,
+            session_code: code
+        });
+    })
 }
 
 // Initiate the on-screen keyboard for mobile devices
