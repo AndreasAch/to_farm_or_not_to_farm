@@ -1,0 +1,14 @@
+#players_list {
+    background: url('../assets/lobbyContainer.png') no-repeat center;
+    font-size: 24px;
+}
+
+#start_button {
+    background: url('../assets/buttonNormal.png') no-repeat center;
+    border: none;
+}
+
+#start_button:pressed {
+    background: url('../assets/buttonPressed.png') no-repeat center;
+    border: none;
+}

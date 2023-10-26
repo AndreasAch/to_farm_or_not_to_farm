@@ -1,5 +1,5 @@
-const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
-//const socket = io.connect('http://127.0.0.1:5000');
+//const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
+const socket = io.connect('http://127.0.0.1:5000');
 
 // const params = new URLSearchParams(window.location.search);
 // const playerName = params.get('playerName');
@@ -98,6 +98,10 @@ export default class Title extends Phaser.Scene {
             })
             this.lobby.text.setText(text);
         });
+
+        socket.on('test_event' + sessionCode, (test_msg) => {
+            console.log(test_msg + 'received');
+        })
     }
 }
 function leaveGame() {
