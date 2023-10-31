@@ -28,6 +28,9 @@ class FarmApp(QWidget):
         }
         self.session_code = ""
         # self.retry_interval = 3000  # 3 seconds
+        font_id = QFontDatabase.addApplicationFont("../assets/fonts/Righteous.ttf")
+        font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
+
         self.initUI()
         self.connect_to_server()
 
@@ -62,11 +65,11 @@ class FarmApp(QWidget):
         if hasattr(self.current_widget, "round_label"):
             self.current_widget.round_label.setText("ROUND: " + str(self.session['round']))
         if hasattr(self.current_widget, "forecast_button"):
-            self.current_widget.forecast_button.clicked.connect()
+            self.current_widget.forecast_button.clicked.connect(self.publish_forecasts)
         if hasattr(self.current_widget, "reveal_weather_button"):
-            self.current_widget.reveal_weather_button.clicked.connect()
+            self.current_widget.reveal_weather_button.clicked.connect(self.reveal_weather_event)
         if hasattr(self.current_widget, "advance_round_button"):
-            self.current_widget.advance_round_button.clicked.connect()
+            self.current_widget.advance_round_button.clicked.connect(self.advance_round)
 
     def connect_to_server(self):
         # Connect to the SocketIO server
@@ -120,7 +123,7 @@ class FarmApp(QWidget):
         self.generate_weather_events()
         print(self.session)
         ####
-        # self.socket.emit('session_start', data=self.session)
+        self.socket.emit('session_start', data=self.session)
         ####
         self.load_ui_screen('./scenes/main_screen.ui')
         # print(self.session['players'])
@@ -155,8 +158,26 @@ class FarmApp(QWidget):
         num_events = 18
         self.session['events'] = random.choices(available_events, k=num_events)
 
-    def test_method(self):
-        self.load_ui_screen('./scenes/start_screen.ui')
+    def publish_forecasts(self):
+        self.socket.emit('publish_forecasts', data=self.session_code)
+        self.current_widget.reveal_weather_button.setEnabled(True)
+        self.current_widget.instruction_label.setText(
+            "DECISION TIME: " + "\n" + "Each player takes a turn to complete their actions")
+        self.current_widget.forecast_button.setEnabled(False)
+
+    def reveal_weather_event(self):
+        self.current_widget.reveal_weather_button.setEnabled(False)
+        self.current_widget.instruction_label.setText(
+            "WEATHER EVENT: " + "\n" + self.session['events'][self.session['round']])
+        self.current_widget.advance_round_button.setEnabled(True)
+
+    def advance_round(self):
+        self.current_widget.advance_round_button.setEnabled(False)
+        self.current_widget.instruction_label.setText("")
+        self.current_widget.forecast_button.setEnabled(True)
+        self.session['round'] += 1
+        self.current_widget.round_label.setText("ROUND: " + str(self.session['round']))
+        self.socket.emit('advance_round', data=self.session)
 
 
 if __name__ == '__main__':
