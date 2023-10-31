@@ -2,6 +2,7 @@ import Handler from './src/scenes/handler.js'
 import Title from './src/scenes/title.js'
 import Preload from './src/scenes/preload.js'
 import Hub from './src/scenes/hub.js'
+import Forecast from "./src/scenes/forecast.js";
 
 // Aspect Ratio 16:9 - Portrait
 const MAX_SIZE_WIDTH_SCREEN = 1920
@@ -36,7 +37,7 @@ const config = {
     dom: {
         createContainer: true
     },
-    scene: [Handler, Hub, Preload, Title]
+    scene: [Handler, Hub, Preload, Title, Forecast]
 
 }
 

@@ -8,7 +8,17 @@
     border: none;
 }
 
+#retry_button {
+    background: url('../assets/buttonNormal.png') no-repeat center;
+    border: none;
+}
+
 #start_button:pressed {
+    background: url('../assets/buttonPressed.png') no-repeat center;
+    border: none;
+}
+
+#retry_button:pressed {
     background: url('../assets/buttonPressed.png') no-repeat center;
     border: none;
 }

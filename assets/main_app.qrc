@@ -1,0 +1,8 @@
+<RCC>
+  <qresource>
+    <file>buttonNormal.png</file>
+    <file>buttonPressed.png</file>
+    <file>leaf.ico</file>
+    <file>lobbyContainer.png</file>
+  </qresource>
+</RCC>

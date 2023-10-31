@@ -99,9 +99,13 @@ export default class Title extends Phaser.Scene {
             this.lobby.text.setText(text);
         });
 
-        socket.on('test_event' + sessionCode, (test_msg) => {
-            console.log(test_msg + 'received');
-        })
+        socket.on('move_to_forecast', () => {
+            this.sceneStopped = true;
+            this.scene.stop('title');
+            this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
+            this.handlerScene.launchScene('forecast', {player_name: playerName, session_code: sessionCode});
+        });
+
     }
 }
 function leaveGame() {

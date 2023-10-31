@@ -10,7 +10,8 @@ app.config['SECRET_KEY'] = 'TFONTF'  # Change this to a random secret key
 socketio = SocketIO(app, cors_allowed_origins="*")
 CORS(app)
 
-sessions = {}
+players_per_session = {}
+session_data = {}
 
 
 @app.route('/')
@@ -26,7 +27,8 @@ def generate_session_code():
 def get_session_code():
     session_code = generate_session_code()
     join_room(session_code)
-    sessions[session_code] = []
+    players_per_session[session_code] = []
+    session_data[session_code] = {}
     emit('session_code', session_code, room=session_code)
 
 
@@ -36,18 +38,18 @@ def join_game(data):
         'code': data.get('session_code'),
         'name': data.get('player_name')
     }
-    if player['code'] not in sessions:
+    if player['code'] not in players_per_session.keys():
         # Add emit here to communicate error to client
         # sessions[player['code']] = []
         return
 
-    sessions[player['code']].append(player['name'])
-    print(sessions)
+    players_per_session[player['code']].append(player['name'])
+    print(players_per_session)
     join_room(player['code'])
     emit('player_joined', player, room=player['code'])
     emit('join_approve' + player['name'], player, room=player['code'])
     time.sleep(2)
-    emit('update_lobby', sessions[player['code']], room=player['code'])
+    emit('update_lobby', players_per_session[player['code']], room=player['code'])
 
 
 @socketio.on('leave_game')
@@ -56,10 +58,10 @@ def leave_game(data):
         'code': data.get('session_code'),
         'name': data.get('player_name')
     }
-    sessions[player['code']].remove(player['name'])
+    players_per_session[player['code']].remove(player['name'])
     emit('player_left', player, room=player['code'])
     time.sleep(2)
-    emit('update_lobby', sessions[player['code']], room=player['code'])
+    emit('update_lobby', players_per_session[player['code']], room=player['code'])
 
 
 @socketio.on('join')
@@ -67,6 +69,39 @@ def join(data):
     code = data.get('session_code')
     name = data.get('player_name')
     join_room(code)
+
+
+@socketio.on('session_start')
+def session_start(session):
+    session_data[session['session_code']] = session
+    print(session_data)
+    emit('move_to_forecast', room=session['session_code'])
+    # probably move these from here
+    # time.sleep(2)
+    # emit('test_event', 'test_data', room=session['session_code'])
+
+
+@socketio.on('publish_forecasts')
+def publish_forecasts(code):
+    # 55% 45% 35%
+    players_in_session = session_data[code]['players'].items()
+    curr_round = session_data[code]['round']
+    events = session_data[code]['events'][curr_round:curr_round + 3]
+    event_pool = ['event1', 'event2', 'event3', 'event4']
+    for cls, name in players_in_session:
+        if name is None:
+            del players_in_session['cls']
+
+    for cls, name in players_in_session:
+        forecast = []
+        for i in range(0, 3):
+            chance = 0.55 - 0.1 * i
+            rem = (1 - chance) / 3
+            weights = [rem, rem, rem, rem]
+            weights[event_pool.index(events[i])] = chance
+            forecast[i] = random.choices(event_pool, weights=weights, k=1)
+        print(forecast)
+        emit('distribute_forecast' + name, forecast, room=code)
 
 
 if __name__ == '__main__':
