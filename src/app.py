@@ -1,8 +1,7 @@
-import json
 import random
 import time
 
-from flask import Flask, request, jsonify
+from flask import Flask
 from flask_socketio import SocketIO, emit, join_room
 from flask_cors import CORS
 
