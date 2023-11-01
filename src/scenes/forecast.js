@@ -1,5 +1,5 @@
-const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
-//const socket = io.connect('http://127.0.0.1:5000');
+//const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
+const socket = io.connect('http://127.0.0.1:5000');
 
 let sessionCode;
 let playerName;
@@ -103,3 +103,5 @@ export default class Forecast extends Phaser.Scene {
 
     }
 }
+
+
