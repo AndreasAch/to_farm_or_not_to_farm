@@ -86,29 +86,27 @@ def session_start(session):
 
 
 @socketio.on('publish_forecasts')
-def publish_forecasts(code):
-    # 55% 45% 35%
+def publish_forecasts(data):
+    # 65% 55% 35%
+    code = data['code']
     print(session_data[code])
-    players_in_session = session_data[code]['players']
+    players_in_session = data['player_names']
     curr_round = session_data[code]['round']
     events = session_data[code]['events'][curr_round:curr_round + 3]
-    event_pool = ['event1', 'event2', 'event3', 'event4']
-    keys_to_delete = [cls for cls, name in players_in_session.items() if name is None]
-    for cls in keys_to_delete:
-        del players_in_session[cls]
-    print(players_in_session)
+    event_pool = ['Normal', 'Drought', 'Rain', 'Hail']
     print("Actual: " + str(events))
     print("===========")
-    for cls, name in players_in_session.items():
-        forecast = [None] * 3
-        for i in range(3):
-            chance = 0.55 - 0.1 * i
-            rem = (1 - chance) / 3
-            weights = [rem, rem, rem, rem]
-            weights[event_pool.index(events[i])] = chance
-            forecast[i] = random.choices(event_pool, weights=weights, k=1)[0]
-        print(forecast)
-        emit('distribute_forecast' + name, forecast, room=code)
+    forecast = [None] * 3
+    for i, chance in enumerate([0.65, 0.55, 0.35]):
+        rem = (1 - chance) / 3
+        weights = [rem, rem, rem, rem]
+        weights[event_pool.index(events[i])] = chance
+        print(weights)
+        forecast[i] = random.choices(event_pool, weights=weights, k=1)[0]
+    print(forecast)
+    emit('clear_forecast', room=code)
+    for player in players_in_session:
+        emit('distribute_forecast' + player, forecast, room=code)
 
 
 @socketio.on('advance_round')

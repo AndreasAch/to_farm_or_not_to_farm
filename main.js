@@ -43,28 +43,6 @@ const config = {
 
 const game = new Phaser.Game(config)
 
-// Check if the Wake Lock API is available in the browser
-if ('wakeLock' in navigator) {
-    // Request a screen wake lock
-    async function requestWakeLock() {
-        try {
-            const wakeLock = await navigator.wakeLock.request('screen')
-            console.log('Screen wake lock activated:', wakeLock)
-        } catch (err) {
-            console.error('Failed to request a wake lock:', err)
-        }
-    }
-
-    // Request the wake lock when the page is focused
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
-            requestWakeLock()
-        }
-    })
-} else {
-    console.error('Wake Lock API is not supported in this browser.')
-}
-
 // Global
 game.debugMode = true
 game.embedded = false // game is embedded into a html iframe/object

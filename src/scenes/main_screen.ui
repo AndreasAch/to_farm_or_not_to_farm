@@ -43,7 +43,7 @@ background-color: rgb(255, 255, 255);</string>
    <property name="geometry">
     <rect>
      <x>940</x>
-     <y>150</y>
+     <y>350</y>
      <width>269</width>
      <height>51</height>
     </rect>
@@ -93,7 +93,7 @@ border: none;
    <property name="geometry">
     <rect>
      <x>940</x>
-     <y>350</y>
+     <y>450</y>
      <width>269</width>
      <height>51</height>
     </rect>
@@ -213,6 +213,37 @@ border-radius: 10px;</string>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="forecast_list">
+   <property name="geometry">
+    <rect>
+     <x>940</x>
+     <y>180</y>
+     <width>256</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Righteous</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::MultiSelection</enum>
+   </property>
+   <property name="isWrapping" stdset="0">
+    <bool>true</bool>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="viewMode">
+    <enum>QListView::ListMode</enum>
+   </property>
+   <property name="sortingEnabled">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

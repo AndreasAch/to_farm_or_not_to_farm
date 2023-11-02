@@ -1,27 +1,29 @@
-const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
-//const socket = io.connect('http://127.0.0.1:5000');
+//const socket = io.connect('https://to-farm-or-not-tofarm.onrender.com');
+const socket = io.connect('http://127.0.0.1:5000');
 
-// // Check if the Wake Lock API is available in the browser
-// if ('wakeLock' in navigator) {
-//     // Request a screen wake lock
-//     async function requestWakeLock() {
-//         try {
-//             const wakeLock = await navigator.wakeLock.request('screen')
-//             console.log('Screen wake lock activated:', wakeLock)
-//         } catch (err) {
-//             console.error('Failed to request a wake lock:', err)
-//         }
-//     }
-//
-//     // Request the wake lock when the page is focused
-//     document.addEventListener('visibilitychange', () => {
-//         if (document.visibilityState === 'visible') {
-//             requestWakeLock()
-//         }
-//     })
-// } else {
-//     console.error('Wake Lock API is not supported in this browser.')
-// }
+
+// Check if the Wake Lock API is available in the browser
+if ('wakeLock' in navigator) {
+    // Request a screen wake lock
+    async function requestWakeLock() {
+        try {
+            const wakeLock = await navigator.wakeLock.request('screen')
+            console.log('Screen wake lock activated:', wakeLock)
+        } catch (err) {
+            console.error('Failed to request a wake lock:', err)
+        }
+    }
+
+    // Request the wake lock when the page is focused
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            requestWakeLock()
+        }
+    })
+} else {
+    console.error('Wake Lock API is not supported in this browser.')
+}
+
 
 let sessionCode;
 let playerName;
@@ -106,12 +108,16 @@ export default class Forecast extends Phaser.Scene {
             session_code: sessionCode
         });
 
+        socket.on('clear_forecast', () => {
+            this.forecast.setText("");
+        });
+
         socket.on('distribute_forecast' + playerName, (data) => {
             console.log(data);
             this.forecast.setText(
                 "FORECAST:" + "\n" +
-                "Upcoming round: " + data[0] + " 55%" + "\n" +
-                "Round+1: " + data[1] + " 45%" + "\n" +
+                "Upcoming round: " + data[0] + " 65%" + "\n" +
+                "Round+1: " + data[1] + " 55%" + "\n" +
                 "Round+2: " + data[2] + " 35%" + "\n"
             )
         });
@@ -125,5 +131,3 @@ export default class Forecast extends Phaser.Scene {
 
     }
 }
-
-
