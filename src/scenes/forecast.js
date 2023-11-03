@@ -9,6 +9,13 @@ if ('wakeLock' in navigator) {
         try {
             const wakeLock = await navigator.wakeLock.request('screen')
             console.log('Screen wake lock activated:', wakeLock)
+            this.scene.stop('title');
+            this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
+            this.handlerScene.launchScene('forecast', {
+                player_name: playerName,
+                session_code: sessionCode,
+                player_class: playerClass[0]
+            });
         } catch (err) {
             console.error('Failed to request a wake lock:', err)
         }
@@ -16,9 +23,10 @@ if ('wakeLock' in navigator) {
 
     // Request the wake lock when the page is focused
     document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
-            requestWakeLock()
-        }
+        // if (document.visibilityState === 'visible') {
+        //     requestWakeLock()
+        // }
+        requestWakeLock()
     })
 } else {
     console.error('Wake Lock API is not supported in this browser.')
