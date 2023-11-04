@@ -29,13 +29,11 @@ class FarmApp(QWidget):
         }
         self.session_code = ""
         # Rules for weather generation
-        self.rules = {
-            'Normal1': {'trigger': ['Normal', 'Normal'], 'outcome': 'Normal'},
-            'Normal2': {'trigger': ['Normal', 'Hail'], 'outcome': 'Normal'},
-            'Drought1': {'trigger': ['Drought', 'Drought'], 'outcome': 'Drought'},
-            'Drought2': {'trigger': ['Drought', 'Rain'], 'outcome': 'Drought'},
-            'Hail': {'trigger': ['Normal', 'Rain'], 'outcome': 'Hail'},
-            'Rain': {'trigger': ['Normal', 'Drought'], 'outcome': 'Rain'}
+        self.event_text_dict = {
+            'Normal': '<html><head/><body><p align="center"><img src="../assets/normal_weather.png"/><span style=" font-weight:600;"> Normal weather conditions </span><img src="../assets/normal_weather.png"/></p><p><span style=" font-size:20pt; color:#000000;">All crops grow naturally, normal water consumption and growth progression for all crops.</span></p><p><img src="../assets/wheat.png"/><span style=" font-size:20pt;"> Wheat: +4 stages (</span><img src="../assets/water.png"/><span style=" font-size:20pt;">)<br/></span><img src="../assets/carrot.png"/><span style=" font-size:20pt;"> Carrot: +3 stages (</span><img src="../assets/water.png"/><img src="../assets/water.png"/><span style=" font-size:20pt;">) <br/></span><img src="../assets/tomato.png"/><span style=" font-size:20pt;"> Tomato: +2 stages (</span><img src="../assets/water.png"/><img src="../assets/water.png"/><img src="../assets/water.png"/><span style=" font-size:20pt;">) </span></p></body></html>',
+            'Drought': '<html><head/><body><p align="center"><img src="../assets/drought.png"/><span style=" font-weight:600;"> Drought </span><img src="../assets/drought.png"/></p><p><span style=" font-size:20pt;">Water shortage, your plants grow slow, </span><span style=" font-size:20pt; font-weight:600; color:#aa0000;">only +1 stage for all crops</span><span style=" font-size:20pt;">. You may pay the cost (</span><img src="../assets/coins.png"/><span style=" font-size:20pt;">) of irrigation to mitigate the effects</span></p><p><img src="../assets/wheat.png"/><span style=" font-size:20pt;"> Wheat: +4 stages (</span><img src="../assets/water.png"/>, <img src="../assets/coins.png"/><span style=" font-size:20pt;">) <br/></span><img src="../assets/carrot.png"/><span style=" font-size:20pt;"> Carrot: +3 stages (</span><img src="../assets/water.png"/><img src="../assets/water.png"/>, <img src="../assets/coins.png"/><img src="../assets/coins.png"/><span style=" font-size:20pt;">) <br/></span><img src="../assets/tomato.png"/><span style=" font-size:20pt;"> Tomato: +2 stages (</span><img src="../assets/water.png"/><img src="../assets/water.png"/><img src="../assets/water.png"/>, <img src="../assets/coins.png"/><img src="../assets/coins.png"/><span style=" font-size:20pt;">) </span></p></body></html>',
+            'Rain': '<html><head/><body><p align="center"><img src="../assets/rain.png"/><span style=" font-weight:600;"> Heavy Rain </span><img src="../assets/rain.png"/></p><p><span style=" font-size:18pt; color:#000000;">The heavy rainfall causes the crops to get waterlogged. </span><span style=" font-size:18pt; font-weight:600; color:#aa0000;">No crop is allowed to move. </span><span style=" font-size:18pt; color:#000000;">You may pay the cost (</span><img src="../assets/coins.png"/><span style=" font-size:18pt;">) of drainage to mitigate the effects. No water consumption for this round</span></p><p><img src="../assets/wheat.png"/><span style=" font-size:18pt;"> Wheat: +4 stages (</span><img src="../assets/coins.png"/><span style=" font-size:18pt;">)<br/></span><img src="../assets/carrot.png"/><span style=" font-size:18pt;"> Carrot: +3 stages (</span><img src="../assets/coins.png"/><img src="../assets/coins.png"/><span style=" font-size:18pt;">) <br/></span><img src="../assets/tomato.png"/><span style=" font-size:18pt;"> Tomato: +2 stages (</span><img src="../assets/coins.png"/><img src="../assets/coins.png"/><span style=" font-size:18pt;">) </span></p></body></html>',
+            'Hail': '<html><head/><body><p align="center"><img src="../assets/hail.png"/><span style=" font-weight:600;"> Hail </span><img src="../assets/hail.png"/></p><p><span style=" font-size:20pt; color:#000000;">Hail is causing the crops to get damaged. The crop\'s growth is determined by it\'s current state, they may only move 1 stage forwards or backwards:</span></p><p><img src="../assets/wheat.png"/><img src="../assets/carrot.png"/><img src="../assets/tomato.png"/><span style=" font-size:20pt;"/><span style=" font-size:20pt; color:#aa0000;"> All crops stages 1-3:</span><span style=" font-size:20pt;"> -1 stage backwards (</span><img src="../assets/water.png"/><span style=" font-size:20pt;">)<br/></span><img src="../assets/wheat.png"/><img src="../assets/carrot.png"/><img src="../assets/tomato.png"/><span style=" font-size:20pt; color:#aa0000;"> All crops stages 4-5:</span><span style=" font-size:20pt;"> +1 stage forwards (</span><img src="../assets/water.png"/><span style=" font-size:20pt;">)</span></p></body></html>'
         }
 
         font_id = QFontDatabase.addApplicationFont("../assets/fonts/Righteous.ttf")
@@ -213,8 +211,8 @@ class FarmApp(QWidget):
     # NEEDS TO CHANGE TO SEND FORECAST ONLY TO THE PLAYERS THAT OPT-IN
     def publish_forecasts(self):
         self.current_widget.reveal_weather_button.setEnabled(True)
-        self.current_widget.instruction_label.setText(
-            "DECISION TIME: " + "\n" + "Each player takes a turn to complete their actions")
+        self.current_widget.instruction_title.setText("DECISION TIME")
+        self.current_widget.instruction_label.setText("Each player takes a turn to complete their actions")
         self.current_widget.forecast_button.setEnabled(False)
         checked_items = []
         for i in range(self.forecast_list.count()):
@@ -229,8 +227,9 @@ class FarmApp(QWidget):
 
     def reveal_weather_event(self):
         self.current_widget.reveal_weather_button.setEnabled(False)
-        self.current_widget.instruction_label.setText(
-            "WEATHER EVENT: " + "\n" + self.session['events'][self.session['round']])
+        self.current_widget.instruction_title.setText("WEATHER EVENT REVEAL")
+        curr_event = self.session['events'][self.session['round']]
+        self.current_widget.instruction_label.setText(self.event_text_dict[curr_event])
         self.current_widget.advance_round_button.setEnabled(True)
 
     def advance_round(self):
@@ -243,7 +242,7 @@ class FarmApp(QWidget):
             item.setCheckState(Qt.Unchecked)
 
         self.session['round'] += 1
-        self.current_widget.round_label.setText("ROUND: " + str(self.session['round']))
+        self.current_widget.round_label.setText("ROUND " + str(self.session['round']))
         self.calculate_single_forecast()
         self.socket.emit('advance_round', data=self.session)
 
@@ -252,7 +251,8 @@ class FarmApp(QWidget):
         weights = [0.15, 0.15, 0.15, 0.15]
         weights[event_pool.index(self.session['events'][self.session['round']])] = 0.55
         first_round_forecast = random.choices(event_pool, weights=weights, k=1)
-        self.current_widget.instruction_label.setText("FORECASTED EVENT FOR THE ROUND:" + "\n" + first_round_forecast[0])
+        self.current_widget.instruction_title.setText("FORECASTED EVENT FOR THE ROUND")
+        self.current_widget.instruction_label.setText("There is a 55% chance for " + first_round_forecast[0])
 
 
 if __name__ == '__main__':

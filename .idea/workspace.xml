@@ -2,8 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75f607e0-e621-4d89-9fe5-56b0a67256ca" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/carrot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/coins.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/drought.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/forecast_list_bg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/hail.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/main_text_bg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/main_text_content.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/main_text_title.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/normal_weather.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/rain.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/round_label.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/tomato.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/water.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/wheat.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scenes/forecast.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/forecast.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/main_app.qrc" beforeDir="false" afterPath="$PROJECT_DIR$/assets/main_app.qrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scenes/main_screen.ui" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/main_screen.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,26 +59,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Uni Stuff/Masters/GameDesignProject/to_farm_or_not_to_farm/assets&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.4045977&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.web.browsers&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Uni Stuff/Masters/Year 2/GameDesignProject/to_farm_or_not_to_farm/assets",
+    "list.type.of.created.stylesheet": "CSS",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.4045977",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.web.browsers"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets" />
       <recent name="D:\Uni Stuff\Masters\GameDesignProject\to_farm_or_not_to_farm\assets" />
       <recent name="D:\Uni Stuff\Masters\GameDesignProject\to_farm_or_not_to_farm\src" />
-      <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\temp project" />
       <recent name="C:\Uni Stuff\Masters\Year 2\GameDesignProject\to_farm_or_not_to_farm\assets\fonts" />
     </key>
@@ -143,7 +160,8 @@
       <workItem from="1698798054258" duration="1100000" />
       <workItem from="1698839813892" duration="17164000" />
       <workItem from="1699014820985" duration="45000" />
-      <workItem from="1699021298359" duration="6182000" />
+      <workItem from="1699021298359" duration="9224000" />
+      <workItem from="1699120499856" duration="13114000" />
     </task>
     <servers />
   </component>

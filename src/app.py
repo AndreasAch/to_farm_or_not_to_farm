@@ -69,6 +69,7 @@ def join(data):
     code = data.get('session_code')
     name = data.get('player_name')
     join_room(code)
+    emit('update_lobby', players_per_session[code], room=code)
 
 
 @socketio.on('session_start')
@@ -97,7 +98,7 @@ def publish_forecasts(data):
     print("Actual: " + str(events))
     print("===========")
     forecast = [None] * 3
-    for i, chance in enumerate([0.65, 0.55, 0.35]):
+    for i, chance in enumerate([0.85, 0.70, 0.55]):
         rem = (1 - chance) / 3
         weights = [rem, rem, rem, rem]
         weights[event_pool.index(events[i])] = chance

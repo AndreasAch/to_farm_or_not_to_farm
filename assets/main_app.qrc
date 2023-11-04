@@ -1,5 +1,19 @@
 <RCC>
   <qresource>
+    <file>hail.png</file>
+    <file>rain.png</file>
+    <file>coins.png</file>
+    <file>drought.png</file>
+    <file>water.png</file>
+    <file>tomato.png</file>
+    <file>carrot.png</file>
+    <file>wheat.png</file>
+    <file>main_text_content.png</file>
+    <file>normal_weather.png</file>
+    <file>main_text_title.png</file>
+    <file>main_text_bg.png</file>
+    <file>forecast_list_bg.png</file>
+    <file>round_label.png</file>
     <file>buttonNormal.png</file>
     <file>buttonPressed.png</file>
     <file>leaf.ico</file>
