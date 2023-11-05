@@ -84,7 +84,7 @@
     });
 
     socket.on('join_approve' + playerName, () => {
-        window.location.href = `startGame.html?playerName=${playerName}&sessionCode=${sessionCode}`;
+        window.location.href = `startGame.html?playerName=${playerName}&sessionCode=${sessionCode}&gameStarted=false`;
     })
 
   }

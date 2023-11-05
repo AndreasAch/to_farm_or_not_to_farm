@@ -75,9 +75,10 @@ def join(data):
 @socketio.on('session_start')
 def session_start(session):
     session_data[session['session_code']] = session
-    #print(session_data)
+    # print(session_data)
     data_to_send = {
-        "players": list(session['players'].items())
+        "players": list(session['players'].items()),
+        "round": session['round']
     }
     print(data_to_send)
     emit('move_to_forecast', data_to_send, room=session['session_code'])
@@ -115,6 +116,10 @@ def advance_round(session):
     session_data[session['session_code']] = session
     emit('advance_client_round', session['round'], room=session['session_code'])
 
+
+@socketio.on('request_round')
+def advance_round(code):
+    emit('advance_client_round', session_data[code]['round'], room=code)
 
 
 if __name__ == '__main__':

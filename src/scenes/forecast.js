@@ -36,6 +36,7 @@ if ('wakeLock' in navigator) {
 let sessionCode;
 let playerName;
 let playerClass;
+let round_num;
 
 export default class Forecast extends Phaser.Scene {
 
@@ -51,6 +52,7 @@ export default class Forecast extends Phaser.Scene {
         sessionCode = data.session_code;
         playerName = data.player_name;
         playerClass = data.player_class;
+        socket.emit('request_round');
     }
 
     preload() {
@@ -92,7 +94,7 @@ export default class Forecast extends Phaser.Scene {
             fixedWidth: 400,
         });
 
-        this.round_text = this.add.text(70,180, "Round: 0",{
+        this.round_text = this.add.text(70,180, "Round " + round_num,{
             fill: "black",
             fontFamily: "Righteous",
             fontSize: '35px', // Scale the font size
@@ -124,15 +126,15 @@ export default class Forecast extends Phaser.Scene {
             console.log(data);
             this.forecast.setText(
                 "FORECAST:" + "\n" +
-                "Upcoming round: " + data[0] + " 65%" + "\n" +
-                "Round+1: " + data[1] + " 55%" + "\n" +
-                "Round+2: " + data[2] + " 35%" + "\n"
+                "Upcoming round: " + data[0] + " 85%" + "\n" +
+                "Round+1: " + data[1] + " 70" + "\n" +
+                "Round+2: " + data[2] + " 55%" + "\n"
             )
         });
 
         socket.on('advance_client_round', (round) => {
             this.forecast.setText("");
-            this.round_text.setText("Round: " + round);
+            this.round_text.setText("Round " + round);
         });
 
         //socket.on

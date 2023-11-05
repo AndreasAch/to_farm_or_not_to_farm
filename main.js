@@ -15,6 +15,7 @@ const SIZE_HEIGHT_SCREEN = 960
 const params = new URLSearchParams(window.location.search);
 export const playerName = params.get('playerName');
 export const sessionCode = params.get('sessionCode');
+export const gameStarted = params.get('gameStarted');
 console.log(playerName);
 console.log(sessionCode);
 

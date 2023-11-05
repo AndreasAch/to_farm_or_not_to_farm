@@ -104,11 +104,13 @@ export default class Title extends Phaser.Scene {
             let playerClass = session_data['players'].find(([cls, name]) => name === playerName);
             this.sceneStopped = true;
             this.scene.stop('title');
+            window.history.replaceState(null, null, "startGame.html?playerName=" + playerName + "&sessionCode=" + sessionCode + "&gameStarted=true");
+            //window.location.href = `startGame.html?playerName=${playerName}&sessionCode=${sessionCode}&gameStarted=true`;
             this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
             this.handlerScene.launchScene('forecast', {
                 player_name: playerName,
                 session_code: sessionCode,
-                player_class: playerClass[0]
+                round_num: session_data['round']
             });
         });
 

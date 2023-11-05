@@ -1,5 +1,6 @@
 import { playerName } from '../../main.js';
 import { sessionCode } from '../../main.js';
+import { gameStarted } from "../../main.js";
 
 export default class Preload extends Phaser.Scene {
 
@@ -34,7 +35,16 @@ export default class Preload extends Phaser.Scene {
                     this.sceneStopped = true
                     this.scene.stop('preload')
                     this.handlerScene.cameras.main.setBackgroundColor("#ffffff")
-                    this.handlerScene.launchScene('title', {player_name: playerName, session_code: sessionCode});
+                    console.log(gameStarted);
+                    if (gameStarted === 'true') {
+                        console.log('forecast');
+                        this.handlerScene.launchScene('forecast', {player_name: playerName, session_code: sessionCode, game_started: gameStarted});
+                    } else {
+                        console.log('title');
+                        this.handlerScene.launchScene('title', {player_name: playerName, session_code: sessionCode, game_started: gameStarted});
+                    }
+                    //this.handlerScene.launchScene('title', {player_name: playerName, session_code: sessionCode, game_started: gameStarted});
+
                 },
                 loop: false
             })
