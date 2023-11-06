@@ -162,6 +162,7 @@ export default class Forecast extends Phaser.Scene {
         });
 
         socket.on('distribute_forecast' + playerName, (data) => {
+            console.log(data)
             for (let i in data) {
                 switch (i) {
                     case '0': {

@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75f607e0-e621-4d89-9fe5-56b0a67256ca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/drought128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/forecast_after_next.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/forecast_label.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/forecast_name_label.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/forecast_next.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/forecast_upcoming.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/hail128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/normal128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/rain128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scenes/sprite.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scenes/forecast.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/forecast.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,7 +146,7 @@
       <workItem from="1699014820985" duration="45000" />
       <workItem from="1699021298359" duration="9224000" />
       <workItem from="1699120499856" duration="13698000" />
-      <workItem from="1699188723506" duration="23048000" />
+      <workItem from="1699188723506" duration="24278000" />
     </task>
     <servers />
   </component>
