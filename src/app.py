@@ -98,24 +98,30 @@ def publish_forecasts(data):
     events = []
     forecast = []
     event_pool = ['Normal', 'Drought', 'Rain', 'Hail']
-    if curr_round < 10:
+    if curr_round <= 9:
+        print("events9")
+        print(events)
         events = session_data[code]['events'][curr_round:curr_round + 3]
         chances = [0.85, 0.70, 0.55]
-        forecast = [None] * 3
+        forecast = [None, None, None]
     elif curr_round == 10:
+        print("events10")
+        print(events)
         events = session_data[code]['events'][curr_round:curr_round + 2]
         chances = [0.85, 0.70]
-        forecast = [None] * 2
+        forecast = [None, None]
     else:
-        events = session_data[code]['events'][curr_round]
+        print("eventsElse")
+        events = [session_data[code]['events'][curr_round]]
+        print(events)
         chances = [0.85]
-        forecast = [None] * 1
+        forecast = [None]
 
     # print("Actual: " + str(events))
     # print("===========")
 
     for i, chance in enumerate(chances):
-        rem = (1 - chance) / (i+1)
+        rem = (1 - chance) / 3
         weights = [rem, rem, rem, rem]
         weights[event_pool.index(events[i])] = chance
         print(weights)
