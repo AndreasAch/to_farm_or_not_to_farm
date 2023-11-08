@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75f607e0-e621-4d89-9fe5-56b0a67256ca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/drought_rich_text" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/hail_rich_text" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/normal_rich_text" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/rain_rich_text" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/main_text_content.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/main_text_content.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scenes/main_screen.ui" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/main_screen.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +149,7 @@
       <workItem from="1699188723506" duration="25016000" />
       <workItem from="1699271305164" duration="1313000" />
       <workItem from="1699398131375" duration="2644000" />
-      <workItem from="1699450866900" duration="5423000" />
+      <workItem from="1699450866900" duration="6853000" />
     </task>
     <servers />
   </component>

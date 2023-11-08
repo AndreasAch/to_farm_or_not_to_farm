@@ -306,9 +306,9 @@ background-image: url(../assets/main_text_bg.png);</string>
    <property name="geometry">
     <rect>
      <x>121</x>
-     <y>297</y>
+     <y>266</y>
      <width>727</width>
-     <height>311</height>
+     <height>354</height>
     </rect>
    </property>
    <property name="font">
